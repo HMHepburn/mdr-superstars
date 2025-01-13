@@ -1,0 +1,44 @@
+.base{
+    height: 65px;
+    background-color: var(--primary-accent);
+    overflow: hidden;
+    font-family: var(--main-font);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.4);
+}
+
+.container{
+    padding-left: 5vh;
+    padding-right: 5vh;
+    gap: 64px;
+}
+
+.navbarlinks{
+    float: right;
+    color: white;
+    padding: 24px 14px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.navbarlinks:hover{
+    text-decoration: underline;
+}
+
+.navbarlinks.active{
+    text-decoration: underline;
+}
+
+.icon{
+    height: 25px;
+    width: 25px;
+    padding: 0px;
+    top: 0px;
+}
+
+.logo{
+    height: 40px;
+    width: auto;
+    position: absolute;
+    top: 10px;
+}

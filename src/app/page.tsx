@@ -3,7 +3,6 @@ import Link from "next/link";
 import styles from "./page.module.css";
 import file from "./assets/file.png"
 import tools from "./assets/surgical-tools.png"
-// import nav bar
 
 export default function Home() {
   return (
