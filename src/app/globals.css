@@ -5,6 +5,7 @@
   --secondary-accent: #1E75BB;
   --tertiary-accent: #5D4D92;
   --alert-red: #E40B04;
+  --light-grey: #D9D9D9;
   --main-font: 'Open sans', sans-serif
 }
 
@@ -40,6 +41,39 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.btn-primary {
+  color: white;
+  background: var(--primary-accent);
+  border-radius: 12px;
+  border: none;
+  padding: 10px 20px;
+  margin: 0px 0px 10px 20px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+  cursor: pointer;
+}
+
+.btn-primary:invalid {
+  cursor:default;
+  background-color: grey;
+}
+
+.btn-secondary {
+  background: var(--background);
+  border-color: var(--primary-accent);
+}
+
+.btn-blue{
+  background-color: var(--secondary-accent);
+}
+
+.btn-alert {
+  background: var(--alert-red);
 }
 
 @media (prefers-color-scheme: dark) {

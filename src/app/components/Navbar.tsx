@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import accountIcon from "../assets/accountIcon.png"
 import GRHLogo from "../assets/GRHLogo.png"
-import GRHLogo2 from "../assets/GRHLogo2.png"
+import GRHLogo3 from "../assets/GRHLogo3.png"
 
 export const Navbar = () => {
     const router = useRouter()
@@ -30,7 +30,7 @@ export const Navbar = () => {
         <nav className={styles.base}>
             <div className={styles.container}>
                 <a href='/'>
-                    <Image src={GRHLogo} className={styles.logo} alt="Admin Icon" />
+                    <Image src={GRHLogo3} className={styles.logo} alt="GRH Logo" />
                 </a>
                 <a href='/'className={styles.navbarlinks}>
                     <Image src={accountIcon} className={styles.icon} alt="Admin Icon" />

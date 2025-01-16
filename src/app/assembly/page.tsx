@@ -1,10 +1,14 @@
-"use client";
+'use client'
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/assembly.module.css";
 import React, { useState } from 'react';
+import { CompleteModal } from '../components/CompleteModal';
+import { TrayInformation } from '../components/TrayInformation';
+import {
+  Button
+} from "@nextui-org/react";
 
-// import nav bar
 // to change to dynamic content after styles
 // Do i make this a component for displaying the tray - but switch for the inventory vs the assembly page? 
 
@@ -22,17 +26,16 @@ export default function assembly() {
   
   return (
     <div className={styles.page}>
-      {/* Nav component */}
-    
-      <div className={styles.title}>
-        <div>
-          <h1 className={styles.setName}>XIA-3 INSTRUMENT SET</h1> 
-          <p>View Tray Information</p>
-          {/* View Tray information component */}
+      <div className={styles.headerContainer}>
+        <div className={styles.title}>
+            <h1 className={styles.setName}>XIA-3 INSTRUMENT SET</h1> 
+            <TrayInformation />
         </div>
-        {/* Complete tray button */}
+        <div className={styles.buttonBar}>
+          <Button className="btn-primary btn-blue">Scan Again</Button>
+          <CompleteModal />
+        </div>
       </div>
-      <hr></hr>
       <main className={styles.main}>
       <div className={styles.topSection}>
         <div className={styles.leftSection}>
