@@ -1,0 +1,124 @@
+.page {
+    min-height: 100svh;
+    padding: 5vh;
+    margin: 1vh;
+    gap: 64px;
+    font-family: var(--main-font);
+}
+
+.body {
+
+}
+
+.search {
+    margin-top: 10px;
+}
+
+.search Input{
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    width: 65%;
+    height: 40px;
+    border: 1px solid var(--light-grey);
+    padding-left: 10px;
+    color: black;
+}
+
+.filters {
+    margin: 20px 0;
+}
+
+.filterTabs{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filterTitle{
+    font-weight:bold;
+    margin-bottom: 10px;
+}
+  
+.filterBtn {
+    padding: 5px 15px;
+    font-size: 14px;
+    border-radius: 20px;
+    border: 1px solid var(--secondary-accent);
+    background-color: white;
+    color: var(--secondary-accent);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+  
+.filterBtn:hover {
+    background-color: #e6f4ff;
+}
+  
+.filterBtn.selected {
+    background-color: var(--secondary-accent);
+    color: white;
+}
+
+.searchedItems {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    margin-top: 20px; 
+  }
+  
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    height: 65px;
+    /* transition: transform 0.2s ease, box-shadow 0.2s ease; */
+}
+  
+.itemInfo {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.itemBtn {
+    display: flex;
+    align-items: center;
+}
+  
+.resultName {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.id {
+    font-size: 14px;
+    color: gray;
+    margin: 0;
+}
+
+.detailsBtn {
+    display: flex;
+    align-items: center;
+}
+
+.tag {
+    display: inline-block;
+    padding: 5px 20px;
+    border-radius: 20px;
+    background-color: var(--secondary-accent);
+    color: white;
+    font-size: 12px;
+}
+
+.item:hover {
+    /* transform: translateY(-2px); */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); */
+    cursor: pointer;
+}
