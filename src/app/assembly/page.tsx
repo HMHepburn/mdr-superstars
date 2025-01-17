@@ -2,18 +2,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/assembly.module.css";
+import styles_inv from "../styles/tray.module.css"
 import React, { useState } from 'react';
 import { CompleteModal } from '../components/CompleteModal';
 import { TrayInformation } from '../components/TrayInformation';
 import {
-  Button
+  Button, Accordion, AccordionItem
 } from "@nextui-org/react";
-
-// to change to dynamic content after styles
-// Do i make this a component for displaying the tray - but switch for the inventory vs the assembly page? 
+import trayImage from "../assets/XIA_tray_image.png"
 
 export default function assembly() {
-
   const [correctActive, setCorrectActive] = useState<string | null>(null);
   const [incorrectActive, setIncorrectActive] = useState<string | null>('incorrectItems');
   const [missingActive, setMissingActive] = useState<string | null>('missingItems');
@@ -23,6 +21,29 @@ export default function assembly() {
     setMissingActive(prev => (id === 'missingItems' ? (prev === id ? null : id) : prev));
     setCorrectActive(prev => (id === 'correctItems' ? (prev === id ? null : id) : prev));
   };
+
+  const trayData = [
+    {
+      layer: "Bottom TRAY",
+      items: [
+        { QTY: 1, Name: "Anti Torque Key", Label: "--", CAT: 123456 },
+        { QTY: 1, Name: "Rod Fork", Label: "--", CAT: 123456 },
+        { QTY: 1, Name: "Balanced T-Torque", Label: "--", CAT: 123456 },
+        { QTY: 2, Name: "5mm Hex Square", Label: "--", CAT: 123456 },
+        { QTY: 1, Name: "Inserter Tube", Label: "--", CAT: 123456 },
+      ],
+      image: "/assets/XIA_top_tray.png",
+      additionalInfo: [
+          { title: "Cork Screw Persuader",
+            description: "assembly instructions" ,
+            img: "/assets/XIA_top_tray.png" 
+          }, 
+          { title: "Cork Screw Persuader",
+            description: "assembly instructions" ,
+            img: "/assets/XIA_top_tray.png" 
+            }]
+    }]
+
   
   return (
     <div className={styles.page}>
@@ -140,16 +161,16 @@ export default function assembly() {
           <div className={styles.trayOverview}>
             <h4 className={styles.substitle}>TRAY OVERVIEW</h4>
             {/* ADD ICON */}
-            <div className={styles.items}>
-              <div className={styles.section}>
+            <div className={styles.section}>
+              <div className={styles.container}>
                 <h1 className={styles.wrongNumber}>2</h1>
                 <p>Incorrect Items</p>
               </div>
-              <div className={styles.section}>
+              <div className={styles.container}>
                 <h1 className={styles.wrongNumber}>2</h1>
                 <p>Missing Items</p>
               </div>
-              <div className={styles.section}>
+              <div className={styles.container}>
                 <h1 className={styles.correctNumber}>13</h1>                  
                 <p>Correct Items</p>
               </div>
@@ -159,16 +180,28 @@ export default function assembly() {
           <div className={styles.referenceImage}>
             <h4 className={styles.substitle}>REFERENCE IMAGE</h4>
             <div className={styles.section}>
-              {/* ADD IN TRAY IMAGE */}
-              {/* <Image src={                                                                                                  } alt='Tray Image'></Image> */}
+            <div className={styles.container}>
+              <p>Bottom Tray</p>
+              <Image src={trayImage} className={styles.trayImage}alt="Full tray image"/>
             </div>
+            </div>
+      
           </div>
         </div>  
       </div>
-      <div className={styles.bottomSection}>
-      <h2 className={styles.subtitle}>OTHER DETAILS</h2>
+      <div className={styles.bottomSection} >
+        <h2 className={styles.subtitle}>OTHER DETAILS</h2>
+          <div className={styles.section}>
+              <Accordion selectionMode="multiple" className={styles_inv.accordion}>
+              {trayData[0].additionalInfo.map((item, i) => (  
+                  <AccordionItem className={styles_inv.accordionItem} key={i} aria-label={item.title} title={item.title}>
+                    <p>{item.description}</p>
+                    <img src={item.img}></img>
+                  </AccordionItem>
+              ))}  
+              </Accordion>
+          </div>
       </div>
-
       </main>
       <footer className={styles.footer}>
       </footer>

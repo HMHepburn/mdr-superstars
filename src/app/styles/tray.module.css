@@ -1,0 +1,67 @@
+
+ /* main body */
+ .tab {
+    all: unset;
+    color: black ;
+    background-color: transparent;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    border-bottom: 0.5px solid grey;
+  }
+  .tab[data-slot=tabList] {
+    border-bottom: 1px solid grey;
+  }
+  .tab:hover {
+    cursor: pointer;
+  }
+  .tab[data-selected="true"] {
+    font-weight: bold!important;
+    border-bottom: 2px solid black ;
+  }
+  .image img {
+    position: relative;
+    width: 100%;
+    height: auto;
+
+  }
+  .tab .card {
+    all: unset;
+  }
+
+  /* Other Details section */
+  .accordionItem {
+    margin: 20px auto;
+    padding: 20px; 
+    background: white !important;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .accordion hr{
+    all:unset !important;
+    display: none !important;
+  }
+
+  .accordionItem  button{
+    all: unset !important;
+    display: flex !important;
+    width: 100% !important;
+    justify-content: space-between !important;
+    font-size: large !important;
+    align-items: center !important;
+    background-color: white ;
+  }
+  .accordionItem  button:hover{
+    cursor: pointer !important;
+  }
+
+  .accordionItem img{
+    max-width: 100%;
+  }
+
+  .accordionItem svg {
+    transform: rotate(270deg);
+  }
+  .accordionItem[data-open=true] svg {
+    transform: rotate(90deg);
+  }
