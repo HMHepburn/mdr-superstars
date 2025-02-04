@@ -72,13 +72,15 @@ export default function Tray() {
     return (
         <div>
         <div className={styles.page}>
+          <div className={styles.headerContainer}>
             <div className={styles.title}>
-                <div>
-                    <h1 className={styles.setName}>XIA-3 INSTRUMENT SET</h1> 
-                    <TrayInformation />
-                </div>
-                    {/* add edit button */}
-            </div>
+                  <div>
+                      <h1 className={styles.setName}>XIA-3 INSTRUMENT SET</h1> 
+                      <TrayInformation />
+                  </div>
+                      {/* add edit button */}
+              </div>
+          </div>
              <div className={styles_inv.tabs}>
              <Tabs aria-label="Options" >
              {layers.map((layer, index) => (    

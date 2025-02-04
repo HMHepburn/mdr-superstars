@@ -6,6 +6,7 @@ import styles_inv from "../styles/tray.module.css"
 import React, { useState } from 'react';
 import { CompleteModal } from '../components/CompleteModal';
 import { TrayInformation } from '../components/TrayInformation';
+import { MissingTool } from '../components/MissingTool';
 import {
   Button, Accordion, AccordionItem
 } from "@nextui-org/react";
@@ -152,6 +153,9 @@ export default function assembly() {
                     <p>Details of correct items can go here.</p>
                   </div>
                 </div>
+              <div className={styles.reportMissing}>
+                <MissingTool />
+              </div>
             </div>
           </div>
 

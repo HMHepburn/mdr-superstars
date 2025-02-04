@@ -51,7 +51,7 @@ a {
   padding: 10px 20px;
   margin: 0px 0px 10px 20px;
   font-weight: bold;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 .btn-primary:hover {

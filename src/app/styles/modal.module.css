@@ -4,9 +4,10 @@
     transform: translate(-50%, -50%);
     z-index: 9999;
     width: 45vw;
-    height: 90%;
-    padding: 20px;
-    position: absolute;
+    /* height: 90%; */
+    padding: 40px;
+    padding-bottom: 10px;
+    position: fixed;
     overflow-y: scroll;
 
     background-color: var(--background);
@@ -50,6 +51,7 @@
     display: flex;
     flex-direction:row;
     justify-content: end;
+    padding-bottom: 0px;
 }
 
 .modalFoot Button{
@@ -131,3 +133,104 @@
     color: var(--alert-red);
     font-weight: bold;
 }
+
+.missingHeader {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--primary-accent);
+    margin-bottom: 4%;
+}
+
+.missingDesc {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    /* margin-top: 10px; */
+}
+
+.missingList {
+    margin: 0;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+.missingList li {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.flagItem {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.radioGroup {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+  }
+  
+  .radioLabel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--light-grey);
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .radioLabel:hover {
+    border-color: var(--secondary-accent);
+  }
+  
+  .radioInput {
+    display: none;
+  }
+  
+  .radioLabel::before {
+    content: "";
+    display: inline-block;
+    width: 20px; /* Size of the outer circle */
+    height: 20px;
+    border: 2px solid black; /* Black border */
+    border-radius: 50%; /* Makes it circular */
+    background-color: white; /* White background */
+    transition: all 0.3s ease;
+  }
+  
+  .radioInput:checked + .radioLabel::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 13px; /* Size of the inner dot */
+    height: 13px;
+    background-color: var(--primary-accent); /* Black dot */
+    border-radius: 50%;
+    left: 8.5px; /* Center relative to the outer circle */
+    transform: translateY(50%);
+    transform: translateX(50%);
+  }
+  
+  .radioLabel:hover::before {
+    border-color: var(--secondary-accent); /* Blue border on hover */
+  }
+  /* Row for Item Details */
+  .missingItemRow {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 14px;
+    gap: 10px;
+    font-weight: bold;
+  }
+  
+  .missingItemRow span {
+    flex: 1;
+    text-align: center;
+  }

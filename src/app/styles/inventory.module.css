@@ -10,6 +10,10 @@
 
 }
 
+.header{
+    margin-top: 60px;
+}
+
 .search {
     margin-top: 10px;
 }
@@ -106,6 +110,7 @@
 .detailsBtn {
     display: flex;
     align-items: center;
+    font-size: 14px;
 }
 
 .tag {
@@ -115,6 +120,7 @@
     background-color: var(--secondary-accent);
     color: white;
     font-size: 12px;
+    margin-right: 5px;
 }
 
 .item:hover {

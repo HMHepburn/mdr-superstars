@@ -65,3 +65,15 @@
   .accordionItem[data-open=true] svg {
     transform: rotate(90deg);
   }
+
+  .activeTab {
+    font-weight: bold;
+    color: black;
+    border-bottom: 2px solid black;
+}
+
+.inactiveTab {
+    color: grey;
+    font-weight: normal;
+    opacity: 0.6;
+}
