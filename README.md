@@ -38,3 +38,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 # Author List! - add your name for a test commit!
 Cheryl Li
 Hannah Hepburn
+Paige Kobzar
