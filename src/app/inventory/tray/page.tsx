@@ -3,7 +3,7 @@ import styles_inv from '../../styles/tray.module.css'
 import styles from '../../styles/assembly.module.css'
 import Image from 'next/image';
 import React from 'react';
-import { Tabs , Tab, Card, CardBody, Button, Accordion, AccordionItem} from "@nextui-org/react";
+import { Tabs , Tab, Card, CardBody, Button, Accordion, AccordionItem} from "@heroui/react";
 import { TrayInformation } from '@/app/components/TrayInformation';
 
 

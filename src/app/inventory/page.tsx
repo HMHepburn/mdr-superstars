@@ -9,7 +9,7 @@ import {
     Link,
     Tabs,
     Tab
-} from '@nextui-org/react';
+} from '@heroui/react';
 
 export default function assembly() {
     const [inputValue, setInputValue] = useState("");

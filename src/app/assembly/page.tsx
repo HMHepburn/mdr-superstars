@@ -9,7 +9,7 @@ import { TrayInformation } from '../components/TrayInformation';
 import { MissingTool } from '../components/MissingTool';
 import {
   Button, Accordion, AccordionItem
-} from "@nextui-org/react";
+} from "@heroui/react";
 import trayImage from "../assets/XIA_tray_image.png"
 
 export default function assembly() {

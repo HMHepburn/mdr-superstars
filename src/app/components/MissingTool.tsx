@@ -12,7 +12,7 @@ import {
     Button,
     useDisclosure,
     Radio,
-  } from "@nextui-org/react";
+  } from "@heroui/react";
   
   export const MissingTool = () => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
