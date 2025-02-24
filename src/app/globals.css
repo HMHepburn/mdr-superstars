@@ -20,7 +20,6 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  font-family: var(--main-font);
 }
 
 body {
@@ -54,6 +53,12 @@ a {
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 
+.btn-primary-inverted {
+  background-color: transparent;
+  color: var(--primary-accent);
+  border: 1.5px solid var(--primary-accent);
+}
+
 .btn-primary:hover {
   cursor: pointer;
 }
@@ -74,6 +79,12 @@ a {
 
 .btn-alert {
   background: var(--alert-red);
+}
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 @media (prefers-color-scheme: dark) {
