@@ -1,4 +1,11 @@
 
+ .title {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+ }
+ 
  /* main body */
  .tab {
     all: unset;
@@ -77,3 +84,19 @@
     font-weight: normal;
     opacity: 0.6;
 }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+  }
+
+   /* editing mode */
+   .input {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 2px;
+    margin: 2px;
+    width: 100%;
+  }

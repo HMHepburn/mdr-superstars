@@ -12,6 +12,9 @@ import {
 } from "@heroui/react";
 import trayImage from "../assets/XIA_tray_image.png"
 
+// Make changes to take in data - 3 different lists or 1 list and categorized
+
+
 export default function assembly() {
   const [correctActive, setCorrectActive] = useState<string | null>(null);
   const [incorrectActive, setIncorrectActive] = useState<string | null>('incorrectItems');
@@ -33,7 +36,7 @@ export default function assembly() {
         { QTY: 2, Name: "5mm Hex Square", Label: "--", CAT: 123456 },
         { QTY: 1, Name: "Inserter Tube", Label: "--", CAT: 123456 },
       ],
-      image: "/assets/XIA_top_tray.png",
+      image: "/assets/XIA_bottom_tray.png",
       additionalInfo: [
           { title: "Cork Screw Persuader",
             description: "assembly instructions" ,
@@ -128,10 +131,28 @@ export default function assembly() {
                       Image Label: E
                     </div> */}
                     <div className={styles.row}>
-                      <div className={styles.colSmall}>1</div>
-                      <div className={styles.col}>Anti Torque Key</div>
-                      <div className={styles.colSmall}><span className={styles.badge}>H</span></div>
-                      <div className={styles.col}> 48237026</div>
+                    <Accordion selectionMode="multiple" className={styles.accordion}>
+                      {trayData[0].items.map((item, i) => (
+                        <AccordionItem
+                          key={i}
+                          className={styles.accordionItem}
+                          title={
+                            <div className={styles.row}>
+                              <div className={styles.colSmall}>{item.QTY}</div>
+                              <div className={styles.col}>{item.Name}</div>
+                              <div className={styles.colSmall}>
+                                <span className={styles.badge}>{item.Label}</span>
+                              </div>
+                              <div className={styles.col}>{item.CAT}</div>
+                            </div>
+                          }
+                        >
+                          {/* Content inside the accordion */}
+                          <p>Additional details about {item.Name}.</p>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
+
                     </div>
                   </div>
                 </div>
