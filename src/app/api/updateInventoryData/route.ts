@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 //file path to json
-const jsonFilePath = path.join(process.cwd(), 'src/data/testData.json');
+const jsonFilePath = path.join(process.cwd(), 'src/data/inventoryData.json');
 
 
 // PUT: Update JSON Data
