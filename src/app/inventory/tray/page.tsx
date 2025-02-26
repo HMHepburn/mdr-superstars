@@ -83,7 +83,7 @@ export default function Tray() {
         // Fetch data from the API route
         const fetchTrayData = async () => {
             try {
-                const response = await fetch('/api/getdata');
+                const response = await fetch('/api/getInventoryData');
                 const data = await response.json();
                 setTrayData(data.trays); // Set the tray data in the state
                 console.log("THIS", data.trays)
@@ -99,7 +99,7 @@ export default function Tray() {
     async function updateData(updatedData: any) {
         console.log("PUT", updateData)
         try {
-          const res = await fetch('/api/updatedata', {
+          const res = await fetch('/api/updateInventoryData', {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',

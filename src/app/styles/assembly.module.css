@@ -51,7 +51,7 @@
 
   .container {
     width: 100%;
-    margin: 20px auto;
+    /* margin: 20px auto; */
     min-height: 15vh;
     padding: 20px; 
     background: white;
@@ -133,7 +133,7 @@
   }
   .sectionContent {
     margin: 10px 0 20px;
-    border-top: 1px solid #ddd;
+    /* border-top: 1px solid #ddd; */
     padding-top: 10px;
     display: none;
   }

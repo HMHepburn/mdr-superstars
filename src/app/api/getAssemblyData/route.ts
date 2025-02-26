@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 //file path to JSON
-const jsonFilePath = path.join(process.cwd(), 'src/data/testData.json');
+const jsonFilePath = path.join(process.cwd(), 'src/data/assemblyData.json');
 
 // GET: Read JSON Data
 export async function GET() {
@@ -16,3 +16,4 @@ export async function GET() {
     return NextResponse.json({ error: 'Failed to load data' }, { status: 500 });
   }
 }
+
