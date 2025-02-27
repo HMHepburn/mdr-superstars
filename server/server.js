@@ -12,12 +12,6 @@ wss.on('connection', (ws) => {
     connectedClients++;
     console.log(`Client connected. Total connections: ${connectedClients}`);
 
-    // Send welcome message as JSON
-    ws.send(JSON.stringify({
-        command: 'WELCOME',
-        value: 'Welcome to the WebSocket server!'
-    }));
-
     // Send start detection command as JSON
     ws.send(JSON.stringify({
         command: 'START_DETECTION'
@@ -27,10 +21,10 @@ wss.on('connection', (ws) => {
     ws.on('message', (message) => {
         console.log('Received:', message.toString());
         // Echo the message back as JSON
-        ws.send(JSON.stringify({
-            command: 'ECHO',
-            value: message.toString()
-        }));
+        // ws.send(JSON.stringify({
+        //     command: 'ECHO',
+        //     value: message.toString()
+        // }));
     });
 
     ws.on('close', () => {

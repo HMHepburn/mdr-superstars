@@ -7,8 +7,7 @@ import React from 'react';
 import { Tabs , Tab, Card, CardBody, Button, Accordion, AccordionItem} from "@heroui/react";
 =======
 import React, { FormEvent, useState , useEffect} from 'react';
-import {Tabs , Tab, Card, CardBody, Button, Accordion, AccordionItem} from "@nextui-org/react";
->>>>>>> f443c86b2d5d79e8166939d3279e7a5571f2d6d3
+import {Tabs , Tab, Card, CardBody, Button, Accordion, AccordionItem} from "@heroui/react";
 import { TrayInformation } from '@/app/components/TrayInformation';
 import editIcon from '../../assets/edit.png'
   
