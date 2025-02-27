@@ -12,7 +12,7 @@ import {
     Button,
     useDisclosure,
     Checkbox,
-  } from "@nextui-org/react";
+  } from "@heroui/react";
   
   export const CompleteModal = () => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
