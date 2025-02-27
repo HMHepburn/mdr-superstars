@@ -11,7 +11,7 @@ import {
     ModalFooter,
     Button,
     useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 export const TrayInformation = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
