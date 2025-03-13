@@ -5,9 +5,11 @@ import styles_inv from "../styles/tray.module.css"
 import React, { useState , useEffect, useRef} from 'react';
 import { CompleteModal } from '../components/CompleteModal';
 import { TrayInformation } from '../components/TrayInformation';
+import { PleasePlaceTray } from "../components/PleasePlaceTray";
 import { MissingTool } from '../components/MissingTool';
 import {
-  Button, Accordion, AccordionItem
+  Button, Accordion, AccordionItem,
+  Modal
 } from "@heroui/react";
 //import trayImage from "../assets/XIA_tray_image.png";
 import trayImage from "../assets/trays/test-tray-1.png"
@@ -41,29 +43,33 @@ export default function assembly() {
     setMissingActive(prev => (id === 'missingItems' ? (prev === id ? null : id) : prev));
     setCorrectActive(prev => (id === 'correctItems' ? (prev === id ? null : id) : prev));
   };
-  const [trayData, setTrayData] = useState<any>([]);
+  //
   const [correctItems, setCorrectItems] = useState<Item[]>([]);
   const [missingItems, setMissingItems] = useState<Item[]>([]);
   const [incorrectItems, setIncorrectItems] = useState<Item[]>([]);
 
+  
+
+  const [trayDetected, setTrayDetected] = useState<Boolean>(false);
+  const [trayData, setTrayData] = useState<Tray>();
   const [isTrayCompleted, setIsTrayCompleted] = useState<Boolean>(false);
 
   // TEMPORARY - test tray data
 
   const tools = [
-    { id: "4oDzNiAA8AARSGq0", name: "Bone Hook", label: "1", cat: "I-71", imagePath: "../assets/tools/bone-hook.jpg" },
-    { id: "4oDzNiAA8AARSGUq", name: "Debakey Forcep", label: "2", cat: "G-63", imagePath: "../assets/tools/debakey-forcep.jpg" },
-    { id: "4oDzNiAA8AARSIjQ", name: "Hemoclip Applier", label: "3", cat: "B-54", imagePath: "../assets/tools/hemoclip-applier.jpg" },
-    { id: "4oDzNiAA8AARSJqj", name: "Tonsil Gag", label: "4", cat: "K-14", imagePath: "../assets/tools/tonsil-gag.jpg" },
+    { id: "4oDzNiAA8AARSGq0", name: "Bone Hook", label: "--", cat: "I-71", imagePath: "../assets/tools/bone-hook.jpg" },
+    { id: "4oDzNiAA8AARSGUq", name: "Debakey Forcep", label: "--", cat: "G-63", imagePath: "../assets/tools/debakey-forcep.jpg" },
+    { id: "4oDzNiAA8AARSIjQ", name: "Hemoclip Applier", label: "--", cat: "B-54", imagePath: "../assets/tools/hemoclip-applier.jpg" },
+    { id: "4oDzNiAA8AARSJqj", name: "Tonsil Gag", label: "--", cat: "K-14", imagePath: "../assets/tools/tonsil-gag.jpg" },
     { id: "4oDzNiAA8AARSIGF", name: "Metz Scissor", label: "--", cat: "C-50", imagePath: "../assets/tools/metz-scissor.jpg" },
     { id: "4oDzNiAA8AARSHX/", name: "Baby Hohman", label: "--", cat: "B-11", imagePath: "../assets/tools/baby-hohman.jpg" },
     { id: "4oDzNiAA8AARSF+v", name: "Fibre Optic Cord", label: "--", cat: "A-56", imagePath: "../assets/tools/fibre-optic-cord.jpg" },
     { id: "4oDzNiAA8AARSHBS", name: "Hip Retractor", label: "--", cat: "B-33", imagePath: "../assets/tools/hip-retractor.jpg" },
     { id: "4oDzNiAA8AARSJSo", name: "Mirror", label: "--", cat: "E-14", imagePath: "../assets/tools/mirror.jpg" },
-    { id: "4oDzNiAA8AARSCwp", name: "Mirror", label: "5", cat: "E-14", imagePath: "../assets/tools/mirror.jpg" },
-    { id: "4oDzNiAA8AARSBrx", name: "Mirror", label: "6", cat: "E-14", imagePath: "../assets/tools/mirror.jpg" },
-    { id: "4oDzNiAA8AARSA5J", name: "Mirror", label: "7", cat: "E-14", imagePath: "../assets/tools/mirror.jpg" },
-    { id: "4oDzNiAA8AARSAk7", name: "Mirror", label: "8", cat: "E-14", imagePath: "../assets/tools/mirror.jpg" },
+    { id: "4oDzNiAA8AARSCwp", name: "Mirror", label: "--", cat: "E-14", imagePath: "../assets/tools/mirror.jpg" },
+    { id: "4oDzNiAA8AARSBrx", name: "Mirror", label: "--", cat: "E-14", imagePath: "../assets/tools/mirror.jpg" },
+    { id: "4oDzNiAA8AARSA5J", name: "Mirror", label: "--", cat: "E-14", imagePath: "../assets/tools/mirror.jpg" },
+    { id: "4oDzNiAA8AARSAk7", name: "Mirror", label: "--", cat: "E-14", imagePath: "../assets/tools/mirror.jpg" },
     { id: "4oDzNiAA8AARSI63", name: "Lap Handle", label: "--", cat: "J-55", imagePath: "../assets/tools/lap-handle.jpg" },
     { id: "4oDzNiAA8AARSErI", name: "Scalpel Handle", label: "--", cat: "L-22", imagePath: "../assets/tools/scalpel-handle.jpg" },
     { id: "", name: "Scalpel Handle", label: "--", cat: "L-22", imagePath: "../assets/tools/scalpel-handle.jpg" },
@@ -104,22 +110,22 @@ export default function assembly() {
   ];
 
   const trays = [
-    { id: "tray1Id", name: "Basic Orthopaedic Set", imagePath: "../assets/trays/test-tray-1.png", 
+    { id: "4oDzNiAA8AARSErH", name: "Basic Orthopaedic Set", imagePath: "../assets/trays/test-tray-1.png", 
       instruments: [
         "B-11", "G-63", "J-55", "L-29", "N-57", "P-10", "Q-76", "S-1", "S-32", "V-23", "X-34", "X-81", "E-14"
       ]
     },
-    { id: "tray2Id", name: "Dental Tray Set", imagePath: "../assets/trays/test-tray-2.png",
+    { id: "4oDzNiAA8AARSCK3", name: "Dental Tray Set", imagePath: "../assets/trays/test-tray-2.png",
       instruments: [
         "S-40", "S-40", "B-33", "E-14", "E-14", "Y-28", "C-41", "N-14", "L-22", "W-27", "Q-76", "Q-76"
       ]
     },
-    { id: "tray3Id", name: "Dermatology Set", imagePath: "../assets/trays/test-tray-3.png",
+    { id: "4oDzNiAA8AARSHBR", name: "Dermatology Set", imagePath: "../assets/trays/test-tray-3.png",
       instruments: [
         "K-10", "T-61", "X-59", "N-57", "A-56", "Y-87", "E-14", "M-35", "K-14", "P-10", "P-10", "P-10"
       ]
     },
-    { id: "tray4Id", name: "Blepharoplasty Set", imagePath: "../assets/trays/test-tray-4.png",
+    { id: "4oDzNiAA8AARSEXW", name: "Blepharoplasty Set", imagePath: "../assets/trays/test-tray-4.png",
       instruments: [
         "L-45", "X-81", "C-87", "I-71", "P-51", "B-54", "U-74", "C-50", "E-14", "L-22", "S-31", "L-9"
       ]
@@ -177,27 +183,77 @@ export default function assembly() {
     return () => ws.close(); // Cleanup WebSocket on unmount
 }, []);
 
+// detecting and sorting tools into different categories
 useEffect(() => {
+  setTrayDetected(true);
   const detectedIDs = new Set(rfidTags);
 // detectedIDs = currentRFID tags
 
-  const correct = tools.filter((tool) => detectedIDs.has(tool.id) && tool.label != "--");
-  const missing = tools.filter((tool) => !detectedIDs.has(tool.id) && tool.label != "--");
+  if(trayDetected && trayData) {
+    const trayInstrumentCategories = new Set(trayData.instruments);
 
-  const incorrect = tools.filter((tool) => detectedIDs.has(tool.id) && tool.label == "--");
+    const detectedTools = tools.filter((tool) => detectedIDs.has(tool.id));
+    const detectedCategories = new Set(detectedTools.map((tool) => tool.cat));
 
-  setCorrectItems(correct);
-  setMissingItems(missing);
-  setIncorrectItems(incorrect);
+    // Categorization based on category matching
+    const correct = detectedTools.filter((tool) => trayInstrumentCategories.has(tool.cat));
+    const incorrect = detectedTools.filter((tool) => !trayInstrumentCategories.has(tool.cat));
+
+    const missing = tools.filter(
+      (tool) => trayInstrumentCategories.has(tool.cat) && !detectedCategories.has(tool.cat)
+    );
+
+    setCorrectItems(correct);
+    setMissingItems(missing);
+    setIncorrectItems(incorrect);
+
+    setIsTrayCompleted(incorrect.length === 0 && missing.length === 0);
+    // const correct = tools.filter((tool) => detectedIDs.has(tool.id) && tool.label != "--");
+    // const missing = tools.filter((tool) => !detectedIDs.has(tool.id) && tool.label != "--");
+
+    // const incorrect = tools.filter((tool) => detectedIDs.has(tool.id) && tool.label == "--");
+
+    // setCorrectItems(correct);
+    // setMissingItems(missing);
+    // setIncorrectItems(incorrect);
+
+    // if(incorrect.length == 0 && missing.length == 0) {
+    //   setIsTrayCompleted(true);
+    // }
+    // else {
+    //   setIsTrayCompleted(false);
+    // }
+  }
+
+  else {
+    // set to true if a detected ID matches a tray ID
+    const detectedTray = trays.find((tray) => detectedIDs.has(tray.id));
+    
+    // setTrayDetected(trays.some((tray) => detectedIDs.has(tray.id)));
+    // setTrayData()
+    setTrayDetected(!!detectedTray);
+    setTrayData(detectedTray);
+
+    console.log(trayData);
+  }
+
 }, [rfidTags]);
 
   
   return (
     <div className={styles.page}>
+
+    {!trayDetected && 
+      <PleasePlaceTray></PleasePlaceTray>
+    }
+
+    {trayDetected && 
       <div className={styles.headerContainer}>
         <div className={styles.title}>
             {/* <h1 className={styles.setName}>{trayData.title}</h1>  */}
-            <h1 className={styles.setName}>{"User Testing Tray"}</h1> 
+            <h1 className={styles.setName}>{trayData?.name}</h1> 
+
+            {/* maybe pass some data to this? from the trayData if there's time */}
             <TrayInformation />
         </div>
         <div className={styles.buttonBar}>
@@ -209,6 +265,9 @@ useEffect(() => {
 
         </div>
       </div>
+    }
+
+    {trayDetected && 
       <main className={styles.main}>
 
        <div className={styles.topSection}>
@@ -324,7 +383,7 @@ useEffect(() => {
         </div>  
       </div>
 
-{/* removed for GW*/}
+
       {/* <div className={styles.bottomSection} >
         <h2 className={styles.subtitle}>OTHER DETAILS</h2>
           <div className={styles.section}>
@@ -351,6 +410,8 @@ useEffect(() => {
         </div>
       
       </main>
+    }
+      
       <footer className={styles.footer}>
       </footer>
     </div>
