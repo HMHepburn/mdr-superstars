@@ -1,8 +1,13 @@
+"use client";
+
 import React from "react";
 import styles from "../styles/modal.module.css";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import checkCircle from "../assets/CheckCircle.png";
+import alertSymbol from "../assets/AlertSymbol.png";
+
 import {
     Modal,
     ModalContent,
@@ -13,35 +18,46 @@ import {
     useDisclosure,
     Checkbox,
   } from "@heroui/react";
+
+  interface CompleteModalProps {
+    isCompleted: Boolean;
+  }
   
-  export const CompleteModal = () => {
+  export const CompleteModal: React.FC<CompleteModalProps> = ({ isCompleted }) => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
-      const checklistItems = [
-        {
-          label: "I have arranged every instrument in its proper place.",
-          description: "Reference the provided images and labels."
-        },
-        {
-          label: "I have reassembled any instruments that need to be reassembled.",
-          description: "Reference the provided images and labels."
-        },
-        {
-          label: "I have checked every instrument, tray, and mat for bio-burden.",
-          description: "Use the brush for tube-shaped objects."
-        },
-        {
-          label: "I have tested the quality of every instrument.",
-          description: "Test scissors for sharpness."
-        },
-        {
-          label: "I have inserted the Sterile Indicator.",
-          description: "Trim the end and attach it on the outside of the tray."
-        },
-        {
-          label: "I have marked my initials on the sticker/label.",
-          description: "Description"
-        }
-      ];
+    const checklistItems = [
+      {
+        label: "I have arranged every instrument in its proper place.",
+        description: "Reference the provided images and labels."
+      },
+      {
+        label: "I have reassembled any instruments that need to be reassembled.",
+        description: "Reference the provided images and labels."
+      },
+      {
+        label: "I have checked every instrument, tray, and mat for bio-burden.",
+        description: "Use the brush for tube-shaped objects."
+      },
+      {
+        label: "I have tested the quality of every instrument.",
+        description: "Test scissors for sharpness."
+      },
+      {
+        label: "I have inserted the Sterile Indicator.",
+        description: "Trim the end and attach it on the outside of the tray."
+      },
+      {
+        label: "I have marked my initials on the sticker/label.",
+        description: "Description"
+      }
+    ];
+
+    const router = useRouter(); // Initialize useRouter
+
+    const handleComplete = (onClose: () => void) => {
+        onClose(); // Close the modal
+        router.push("/"); // Redirect to homepage
+    };
 
     return (
       <>
@@ -51,9 +67,12 @@ import {
             <ModalContent>
               {(onClose) => (
                 <>
-                  <ModalHeader className={styles.completeHeader}>Looks like you have all your items!</ModalHeader>
+                {/* isCompleted goes here to change output! */}
+                  <ModalHeader className={isCompleted ? styles.incompleteHeader : styles.completeHeader}>
+                    {isCompleted ? "Looks like you have all your items!" : "The tray has missing or incorrect items!"}
+                  </ModalHeader>
                   <ModalBody className={styles.modalBody}>
-                    <Image src={checkCircle} alt="check" className={styles.checkIcon}/>
+                    <Image src={isCompleted ? checkCircle : alertSymbol} alt="check" className={styles.checkIcon}/>
                     <div id="checkboxes">
                       <p className={styles.subheader}>Please ensure the following tasks are completed:</p>
                       <div className={styles.checklistContainer}>
@@ -70,11 +89,11 @@ import {
                     </div>
                   </ModalBody>
                   <ModalFooter className={styles.modalFoot}>
-                    <Button className='btn-primary btn-alert'onPress={onClose}>
+                    <Button className='btn-primary btn-alert' onPress={onClose}>
                       I'm not Finished.
                     </Button>
-                    <Button className='btn-primary' onPress={onClose}>
-                      Complete Tray
+                    <Button className='btn-primary' onPress={() => handleComplete(onClose)}>
+                      {isCompleted ? "Complete Tray" : "Confirm and Submit Incomplete Tray"}
                     </Button>
                   </ModalFooter>
                 </>
