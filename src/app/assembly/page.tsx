@@ -48,8 +48,6 @@ export default function assembly() {
   const [missingItems, setMissingItems] = useState<Item[]>([]);
   const [incorrectItems, setIncorrectItems] = useState<Item[]>([]);
 
-  
-
   const [trayDetected, setTrayDetected] = useState<Boolean>(false);
   const [trayData, setTrayData] = useState<Tray>();
   const [isTrayCompleted, setIsTrayCompleted] = useState<Boolean>(false);
@@ -244,7 +242,10 @@ useEffect(() => {
     <div className={styles.page}>
 
     {!trayDetected && 
-      <PleasePlaceTray></PleasePlaceTray>
+        <div style={{display: "flex", flexDirection: "column", width:"100%", height:"100%", marginTop:"8rem"}}>
+          <PleasePlaceTray></PleasePlaceTray>
+          <button style={{display: "flex", flexDirection: "column", height: "2rem"}} onClick={() => {setTrayDetected(true)}}>OVERRIDE THIS SCREEN BUTTON</button>
+        </div>
     }
 
     {trayDetected && 
