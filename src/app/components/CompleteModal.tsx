@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import checkCircle from "../assets/CheckCircle.png";
 import alertSymbol from "../assets/AlertSymbol.png";
+import { useState } from "react";
 
 import {
     Modal,
@@ -25,34 +26,50 @@ import {
   
   export const CompleteModal: React.FC<CompleteModalProps> = ({ isCompleted }) => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
-    const checklistItems = [
+    const [canSubmit, setCanSubmit] = useState<Boolean>(false);
+
+    let checklistItems = [
       {
         label: "I have arranged every instrument in its proper place.",
-        description: "Reference the provided images and labels."
+        description: "Reference the provided images and labels.",
+        checked: false
       },
       {
         label: "I have reassembled any instruments that need to be reassembled.",
-        description: "Reference the provided images and labels."
+        description: "Reference the provided images and labels.",
+        checked: false
       },
       {
         label: "I have checked every instrument, tray, and mat for bio-burden.",
-        description: "Use the brush for tube-shaped objects."
+        description: "Use the brush for tube-shaped objects.",
+        checked: false
       },
       {
         label: "I have tested the quality of every instrument.",
-        description: "Test scissors for sharpness."
+        description: "Test scissors for sharpness.",
+        checked: false
       },
       {
         label: "I have inserted the Sterile Indicator.",
-        description: "Trim the end and attach it on the outside of the tray."
+        description: "Trim the end and attach it on the outside of the tray.",
+        checked: false
       },
       {
         label: "I have marked my initials on the sticker/label.",
-        description: "Description"
+        description: "Description",
+        checked: false
       }
     ];
 
     const router = useRouter(); // Initialize useRouter
+
+    const handleCheckboxChange = (index: number) => {
+      checklistItems[index].checked = !checklistItems[index].checked;
+
+      if(checklistItems.every(checklistItem => checklistItem.checked) == true) {
+        setCanSubmit(true);
+      }
+    }
 
     const handleComplete = (onClose: () => void) => {
         onClose(); // Close the modal
@@ -79,7 +96,7 @@ import {
                         {checklistItems.map((item, index) => (
                           <div key={index} className={styles.checklistItem}>
                             <label className={styles.label}>
-                              <input type="checkbox" className={styles.checkbox} />
+                              <input type="checkbox" className={styles.checkbox} onChange={() => handleCheckboxChange(index)}/>
                               {item.label}
                             </label>
                             <p className={styles.description}>{item.description}</p>
@@ -92,9 +109,11 @@ import {
                     <Button className='btn-primary btn-alert' onPress={onClose}>
                       I'm not Finished.
                     </Button>
-                    <Button className='btn-primary' onPress={() => handleComplete(onClose)}>
-                      {isCompleted ? "Complete Tray" : "Confirm and Submit Incomplete Tray"}
-                    </Button>
+                    {canSubmit &&
+                      <Button className='btn-primary' onPress={() => handleComplete(onClose)}>
+                        {isCompleted ? "Complete Tray" : "Confirm and Submit Incomplete Tray"}
+                      </Button>
+                    }
                   </ModalFooter>
                 </>
               )}
