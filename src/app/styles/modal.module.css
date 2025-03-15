@@ -253,4 +253,48 @@
 .missingItemRow span {
     flex: 1;
     text-align: center;
-}
+  }
+
+
+  /* Tools modal */
+
+  .toolsModal {
+    width: 80vw !important;
+    height: 90%;
+  }
+
+  .toolInformation{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+  }
+
+  .rowSection {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  .sectionMargin {
+    margin: 0.7rem 0;
+  }
+
+  .toolImage{
+    width: 100%;
+    /* height: auto; */
+    padding: 0.5rem 0; 
+  }
+
+ .toolSection {
+    display: grid;
+    grid-template-columns: 1fr 1fr !important; 
+    gap: 0.7rem;
+    
+  }
+
+  .topSection{
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 1rem;
+    padding: 1.5rem 0 1.5rem 0;
+    /* height: 100vh; */
+  }

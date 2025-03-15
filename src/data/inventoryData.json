@@ -1,135 +1,144 @@
 {
-    "trays": [{
-            "layer": "TOP TRAY",
-            "items": [{
-                    "QTY": 1,
-                    "Name": "Anti Torque Key 2",
-                    "Label": "B",
-                    "CAT": "123456"
-                },
-                {
-                    "QTY": 1,
-                    "Name": "Rod Fork",
-                    "Label": "F",
-                    "CAT": "123456"
-                },
-                {
-                    "QTY": 1,
-                    "Name": "Balanced T-Torque",
-                    "Label": "--",
-                    "CAT": "123456"
-                },
-                {
-                    "QTY": 2,
-                    "Name": "5mm Hex Square",
-                    "Label": "--",
-                    "CAT": "123456"
-                },
-                {
-                    "QTY": 1,
-                    "Name": "Inserter Tube",
-                    "Label": "--",
-                    "CAT": "123456"
-                }
-            ],
-            "image": "/assets/XIA_top_tray.png",
-            "additionalInfo": [{
-                    "title": "Cork Screw Persuader",
-                    "description": "assembly instructions",
-                    "img": "/assets/XIA_top_tray.png"
-                },
-                {
-                    "title": "Cork Screw Persuader",
-                    "description": "assembly instructions",
-                    "img": "/assets/XIA_top_tray.png"
-                }
-            ]
+  "trays": [
+    {
+      "layer": "TOP TRAY",
+      "items": [
+        {
+          "QTY": 1,
+          "Name": "Anti Torque Key 2",
+          "Label": "B",
+          "CAT": "123456"
         },
         {
-            "layer": "MIDDLE TRAY",
-            "items": [{
-                    "QTY": 1,
-                    "Name": "Distractor Small",
-                    "Label": "--",
-                    "CAT": 123456
-                },
-                {
-                    "QTY": 1,
-                    "Name": "Compressor Small",
-                    "Label": "--",
-                    "CAT": 123456
-                },
-                {
-                    "QTY": 1,
-                    "Name": "Long Template Rod",
-                    "Label": "--",
-                    "CAT": 123456
-                }
-            ],
-            "image": "/assets/XIA_middle_tray.png",
-            "additionalInfo": [{
-                "title": "Cork Screw Persuader",
-                "description": "assembly instructions",
-                "img": "/assets/XIA_middle_tray.png"
-            }]
+          "QTY": 1,
+          "Name": "Rod Fork",
+          "Label": "F",
+          "CAT": "123456"
         },
         {
-            "layer": "BOTTOM TRAY",
-            "items": [{
-                    "QTY": 1,
-                    "Name": "Mono-Driver",
-                    "Label": "--",
-                    "CAT": 123456
-                },
-                {
-                    "QTY": 1,
-                    "Name": "Rod Pusher",
-                    "Label": "--",
-                    "CAT": 123456
-                },
-                {
-                    "QTY": 2,
-                    "Name": "Bending Iron",
-                    "Label": "--",
-                    "CAT": 123456
-                },
-                {
-                    "QTY": 1,
-                    "Name": "Cork Screw Persuader (2pcs)",
-                    "Label": "--",
-                    "CAT": 123456
-                },
-                {
-                    "QTY": 1,
-                    "Name": "Curved Blunt Probe",
-                    "Label": "--",
-                    "CAT": 123456
-                },
-                {
-                    "QTY": 1,
-                    "Name": "Rod Insertion Forceps",
-                    "Label": "--",
-                    "CAT": 123456
-                },
-                {
-                    "QTY": 1,
-                    "Name": "Thoracic Feeer Sound",
-                    "Label": "--",
-                    "CAT": 123456
-                },
-                {
-                    "QTY": 1,
-                    "Name": "French Bender",
-                    "Label": "--",
-                    "CAT": 123456
-                }
-            ],
-            "image": "/assets/user_testing_tray.jpg",
-            "additionalInfo": [{
-                "title": "Ctest",
-                "description": "assembly instructions",
-                "img": "/assets/user_testing_tray.jpg"
-            }]
+          "QTY": 1,
+          "Name": "Balanced T-Torque",
+          "Label": "--",
+          "CAT": "123456"
+        },
+        {
+          "QTY": 2,
+          "Name": "5mm Hex Square",
+          "Label": "--",
+          "CAT": "123456"
+        },
+        {
+          "QTY": 1,
+          "Name": "Inserter Tube",
+          "Label": "--",
+          "CAT": "123456"
         }
-    ]
+      ],
+      "image": "/assets/XIA_top_tray.png",
+      "additionalInfo": [
+        {
+          "title": "Cork Screw Persuader",
+          "description": "assembly instructions",
+          "img": "/assets/XIA_top_tray.png"
+        },
+        {
+          "title": "Cork Screw Persuader",
+          "description": "assembly instructions",
+          "img": "/assets/XIA_top_tray.png"
+        }
+      ]
+    },
+    {
+      "layer": "MIDDLE TRAY",
+      "items": [
+        {
+          "QTY": 1,
+          "Name": "Distractor Small",
+          "Label": "--",
+          "CAT": 123456
+        },
+        {
+          "QTY": 1,
+          "Name": "Compressor Small",
+          "Label": "--",
+          "CAT": 123456
+        },
+        {
+          "QTY": 1,
+          "Name": "Long Template Rod",
+          "Label": "--",
+          "CAT": 123456
+        }
+      ],
+      "image": "/assets/XIA_middle_tray.png",
+      "additionalInfo": [
+        {
+          "title": "Cork Screw Persuader",
+          "description": "assembly instructions",
+          "img": "/assets/XIA_middle_tray.png"
+        }
+      ]
+    },
+    {
+      "layer": "BOTTOM TRAY",
+      "items": [
+        {
+          "QTY": 1,
+          "Name": "Mono-Driver",
+          "Label": "--",
+          "CAT": "123456"
+        },
+        {
+          "QTY": 1,
+          "Name": "Rod Pusher",
+          "Label": "--",
+          "CAT": "123456"
+        },
+        {
+          "QTY": 2,
+          "Name": "Bending Iron",
+          "Label": "--",
+          "CAT": "123456"
+        },
+        {
+          "QTY": 1,
+          "Name": "Cork Screw Persuader (2pcs)",
+          "Label": "--",
+          "CAT": "123456"
+        },
+        {
+          "QTY": 1,
+          "Name": "Curved Blunt Probe",
+          "Label": "--",
+          "CAT": "123456"
+        },
+        {
+          "QTY": 1,
+          "Name": "Rod Insertion Forceps",
+          "Label": "--",
+          "CAT": "123456"
+        },
+        {
+          "QTY": 1,
+          "Name": "Thoracic Feeer Sound",
+          "Label": "--",
+          "CAT": "123456"
+        },
+        {
+          "QTY": 1,
+          "Name": "French Bender",
+          "Label": "--",
+          "CAT": "123456"
+        }
+      ],
+      "image": "/assets/user_testing_tray.jpg",
+      "additionalInfo": [
+        {
+          "title": "Ctest",
+          "description": "assembly instructions",
+          "img": "/assets/user_testing_tray.jpg"
+        }
+      ]
+    }
+  ]
 }
