@@ -11,10 +11,9 @@ import {
   Button, Accordion, AccordionItem,
   Modal
 } from "@heroui/react";
-//import trayImage from "../assets/XIA_tray_image.png";
-import trayImage from "../assets/trays/test-tray-1.png"
+import trayImage from "../assets/GRHLogo.png"
 
-type Item = {
+type Tool = {
   id: string;
   name: string;
   cat: string;
@@ -28,9 +27,9 @@ type Tray = {
   imagePath: string;
   instruments: {
     cat: string,
-    label: string,
+    label: number,
     quantity: number
-  }; // category numbers
+  }[]; // category numbers
 };
 
 export default function assembly() {
@@ -47,9 +46,9 @@ export default function assembly() {
     setCorrectActive(prev => (id === 'correctItems' ? (prev === id ? null : id) : prev));
   };
   //
-  const [correctItems, setCorrectItems] = useState<Item[]>([]);
-  const [missingItems, setMissingItems] = useState<Item[]>([]);
-  const [incorrectItems, setIncorrectItems] = useState<Item[]>([]);
+  const [correctItems, setCorrectItems] = useState<Tool[]>([]);
+  const [missingItems, setMissingItems] = useState<Tool[]>([]);
+  const [incorrectItems, setIncorrectItems] = useState<Tool[]>([]);
 
   const [trayDetected, setTrayDetected] = useState<Boolean>(false);
   const [trayData, setTrayData] = useState<Tray>();
@@ -57,62 +56,62 @@ export default function assembly() {
 
   // TEMPORARY - test tray data
 
-  const tools = [
-    { id: "4oDzNiAA8AARSGq0", name: "Bone Hook", cat: "I-71", imagePath: "../assets/tools/bone-hook.jpg" },
-    { id: "4oDzNiAA8AARSGUq", name: "Debakey Forcep", cat: "G-63", imagePath: "../assets/tools/debakey-forcep.jpg" },
-    { id: "4oDzNiAA8AARSIjQ", name: "Hemoclip Applier", cat: "B-54", imagePath: "../assets/tools/hemoclip-applier.jpg" },
-    { id: "4oDzNiAA8AARSJqj", name: "Tonsil Gag", cat: "K-14", imagePath: "../assets/tools/tonsil-gag.jpg" },
-    { id: "4oDzNiAA8AARSIGF", name: "Metz Scissor", cat: "C-50", imagePath: "../assets/tools/metz-scissor.jpg" },
-    { id: "4oDzNiAA8AARSHX/", name: "Baby Hohman", cat: "B-11", imagePath: "../assets/tools/baby-hohman.jpg" },
-    { id: "4oDzNiAA8AARSF+v", name: "Fibre Optic Cord", cat: "A-56", imagePath: "../assets/tools/fibre-optic-cord.jpg" },
-    { id: "4oDzNiAA8AARSFQt", name: "Hip Retractor", cat: "B-33", imagePath: "../assets/tools/hip-retractor.jpg" },
-    { id: "4oDzNiAA8AARSJSo", name: "Mirror", cat: "E-14", imagePath: "../assets/tools/mirror.jpg" },
-    { id: "4oDzNiAA8AARSCwp", name: "Mirror", cat: "E-14", imagePath: "../assets/tools/mirror.jpg" },
-    { id: "4oDzNiAA8AARSBrx", name: "Mirror", cat: "E-14", imagePath: "../assets/tools/mirror.jpg" },
-    { id: "4oDzNiAA8AARSA5J", name: "Mirror", cat: "E-14", imagePath: "../assets/tools/mirror.jpg" },
-    { id: "4oDzNiAA8AARSAk7", name: "Mirror", cat: "E-14", imagePath: "../assets/tools/mirror.jpg" },
-    { id: "4oDzNiAA8AARSI63", name: "Lap Handle", cat: "J-55", imagePath: "../assets/tools/lap-handle.jpg" },
-    { id: "4oDzNiAA8AARSErI", name: "Scalpel Handle", cat: "L-22", imagePath: "../assets/tools/scalpel-handle.jpg" },
-    { id: "4oDzNiAA8AARSBFj", name: "Scalpel Handle", cat: "L-22", imagePath: "../assets/tools/scalpel-handle.jpg" },
-    { id: "4oDzNiAA8AARSHu7", name: "Needle Driver", cat: "C-41", imagePath: "../assets/tools/needle-driver.jpg" },
-    { id: "4oDzNiAA8AARSS62", name: "Bayonet Forcep", cat: "C-87", imagePath: "../assets/tools/bayonet-forcep.jpg" },
-    { id: "4oDzNiAA8AARSED1", name: "Electrosurgery Bipolar Foreceps", cat: "L-29", imagePath: "../assets/tools/electrosurgery-bipolar-forceps.jpg" },
-    { id: "4oDzNiAA8AARSWbj", name: "Angled Serrated Forceps", cat: "L-45", imagePath: "../assets/tools/angled-serrated-forceps.jpg" },
-    { id: "4oDzNiAA8AARSAnT", name: "Tweezer Tissue Forceps", cat: "L-9", imagePath: "../assets/tools/tweezer-tissue-forceps.jpg" },
-    { id: "4oDzNiAA8AARSBgz", name: "Skin Hook", cat: "M-35", imagePath: "../assets/tools/skin-hook.jpg" },
-    { id: "4oDzNiAA8AARSUKE", name: "Needle Holder", cat: "N-14", imagePath: "../assets/tools/needle-holder.jpg" },
-    { id: "4oDzNiAA8AARSDdv", name: "Broach Handle", cat: "N-57", imagePath: "../assets/tools/broach-handle.jpg" },
-    { id: "4oDzNiAA8AARSDLU", name: "Broach Handle", cat: "N-87", imagePath: "../assets/tools/broach-handle.jpg" },
-    { id: "4oDzNiAA8AARSBMD", name: "Wire And Pin", cat: "P-10", imagePath: "../assets/tools/wire-and-pin.jpg" },
-    { id: "4oDzNiAA8AARSDdw", name: "Wire And Pin", cat: "P-29", imagePath: "../assets/tools/wire-and-pin.jpg" },
-    { id: "4oDzNiAA8AARSTx1", name: "Ear Syringe", cat: "P-51", imagePath: "../assets/tools/ear-syringe.jpg" },
-    { id: "4oDzNiAA8AARSVds", name: "Wire And Pin", cat: "P-59", imagePath: "../assets/tools/wire-and-pin.jpg" },
-    { id: "4oDzNiAA8AARSARG", name: "Suction Tube", cat: "Q-76", imagePath: "../assets/tools/suction-tube.jpg" },
-    { id: "4oDzNiAA8AARSAWz", name: "Suction Tube", cat: "Q-76", imagePath: "../assets/tools/suction-tube.jpg" },
-    { id: "4oDzNiAA8AARSB7B", name: "Suction Tube", cat: "Q-76", imagePath: "../assets/tools/suction-tube.jpg" },
-    { id: "4oDzNiAA8AARSAxe", name: "Miltex Forceps", cat: "S-1", imagePath: "../assets/tools/miltex-forceps.jpg" },
-    { id: "4oDzNiAA8AARSBvi", name: "Scope Element", cat: "S-32", imagePath: "../assets/tools/scope-element.jpg" },
-    { id: "4oDzNiAA8AARSAVK", name: "Straight Needle Holder", cat: "S-31", imagePath: "../assets/tools/straight-needle-holder.jpg" },
-    { id: "4oDzNiAA8AARSBdN", name: "Dilator", cat: "S-40", imagePath: "../assets/tools/dilator.jpg" },
-    { id: "4oDzNiAA8AARSCO8", name: "Dilator", cat: "S-40", imagePath: "../assets/tools/dilator.jpg" },
-    { id: "4oDzNiAA8AARSBA4", name: "Dilator", cat: "S-40", imagePath: "../assets/tools/dilator.jpg" },
-    { id: "4oDzNiAA8AARSDLV", name: "Baron Suction Tube", cat: "T-61", imagePath: "../assets/tools/baron-suction-tube.jpg" },
-    { id: "4oDzNiAA8AARSAeV", name: "Laproscopic Insufflation Instrument", cat: "U-74", imagePath: "../assets/tools/laproscopic-insufflation-instrument.jpg" },
-    { id: "4oDzNiAA8AARSVAD", name: "Yankauer Suction Tube", cat: "V-23", imagePath: "../assets/tools/yankauer-suction-tube.jpg" },
-    { id: "4oDzNiAA8AARSDwm", name: "Sponge Holding Cotton Swab Forceps", cat: "W-27", imagePath: "../assets/tools/sponge-holding-cotton-swab-forceps.jpg" },
-    { id: "4oDzNiAA8AARSC1B", name: "Backhaus Towel Forceps", cat: "W-74", imagePath: "../assets/tools/backhaus-towel-forceps.jpg" },
-    { id: "4oDzNiAA8AARSUiK", name: "Bone Clamp", cat: "X-34", imagePath: "../assets/tools/bone-clamp.jpg" },
-    { id: "4oDzNiAA8AARSAu0", name: "Bipolar Forceps", cat: "X-59", imagePath: "../assets/tools/bipolar-forceps.jpg" },
-    { id: "4oDzNiAA8AARSB+7", name: "Backhaus Towel Forceps", cat: "X-81", imagePath: "../assets/tools/backhaus-towel-forceps.jpg" },
-    { id: "4oDzNiAA8AARSA9B", name: "Nasal Chisel", cat: "Y-28", imagePath: "../assets/tools/nasal-chisel.jpg" },
-    { id: "4oDzNiAA8AARSAcS", name: "Wire And Pin", cat: "Y-40", imagePath: "../assets/tools/wire-and-pin.jpg" },
-    { id: "4oDzNiAA8AARSCbT", name: "Kerrison Rongeur", cat: "Y-87", imagePath: "../assets/tools/kerrison-rongeur.jpg" },
-    { id: "4oDzNiAA8AARSWEh", name: "Periosteal Elevator", cat: "Z-3", imagePath: "../assets/tools/periosteal-elevator.jpg" },
-    { id: "4oDzNiAA8AARSEXX", name: "Alignment Guide", cat: "K-10", imagePath: "../assets/tools/alignment-guide.jpg" },
+  const tools: Tool[] = [
+    { id: "4oDzNiAA8AARSGq0", name: "Bone Hook", cat: "I-71", imagePath: "/tools/bone-hook.jpg" },
+    { id: "4oDzNiAA8AARSGUq", name: "Debakey Forcep", cat: "G-63", imagePath: "/tools/debakey-forcep.jpg" },
+    { id: "4oDzNiAA8AARSIjQ", name: "Hemoclip Applier", cat: "B-54", imagePath: "/tools/hemoclip-applier.jpg" },
+    { id: "4oDzNiAA8AARSJqj", name: "Tonsil Gag", cat: "K-14", imagePath: "/tools/tonsil-gag.jpg" },
+    { id: "4oDzNiAA8AARSIGF", name: "Metz Scissor", cat: "C-50", imagePath: "/tools/metz-scissor.jpg" },
+    { id: "4oDzNiAA8AARSHX/", name: "Baby Hohman", cat: "B-11", imagePath: "/tools/baby-hohman.jpg" },
+    { id: "4oDzNiAA8AARSF+v", name: "Fibre Optic Cord", cat: "A-56", imagePath: "/tools/fibre-optic-cord.jpg" },
+    { id: "4oDzNiAA8AARSFQt", name: "Hip Retractor", cat: "B-33", imagePath: "/tools/hip-retractor.jpg" },
+    { id: "4oDzNiAA8AARSJSo", name: "Mirror", cat: "E-14", imagePath: "/tools/mirror.jpg" },
+    { id: "4oDzNiAA8AARSCwp", name: "Mirror", cat: "E-14", imagePath: "/tools/mirror.jpg" },
+    { id: "4oDzNiAA8AARSBrx", name: "Mirror", cat: "E-14", imagePath: "/tools/mirror.jpg" },
+    { id: "4oDzNiAA8AARSA5J", name: "Mirror", cat: "E-14", imagePath: "/tools/mirror.jpg" },
+    { id: "4oDzNiAA8AARSAk7", name: "Mirror", cat: "E-14", imagePath: "/tools/mirror.jpg" },
+    { id: "4oDzNiAA8AARSI63", name: "Lap Handle", cat: "J-55", imagePath: "/tools/lap-handle.jpg" },
+    { id: "4oDzNiAA8AARSErI", name: "Scalpel Handle", cat: "L-22", imagePath: "/tools/scalpel-handle.jpg" },
+    { id: "4oDzNiAA8AARSBFj", name: "Scalpel Handle", cat: "L-22", imagePath: "/tools/scalpel-handle.jpg" },
+    { id: "4oDzNiAA8AARSHu7", name: "Needle Driver", cat: "C-41", imagePath: "/tools/needle-driver.jpg" },
+    { id: "4oDzNiAA8AARSS62", name: "Bayonet Forcep", cat: "C-87", imagePath: "/tools/bayonet-forcep.jpg" },
+    { id: "4oDzNiAA8AARSED1", name: "Electrosurgery Bipolar Foreceps", cat: "L-29", imagePath: "/tools/electrosurgery-bipolar-forceps.jpg" },
+    { id: "4oDzNiAA8AARSWbj", name: "Angled Serrated Forceps", cat: "L-45", imagePath: "/tools/angled-serrated-forceps.jpg" },
+    { id: "4oDzNiAA8AARSAnT", name: "Tweezer Tissue Forceps", cat: "L-9", imagePath: "/tools/tweezer-tissue-forceps.jpg" },
+    { id: "4oDzNiAA8AARSBgz", name: "Skin Hook", cat: "M-35", imagePath: "/tools/skin-hook.jpg" },
+    { id: "4oDzNiAA8AARSUKE", name: "Needle Holder", cat: "N-14", imagePath: "/tools/needle-holder.jpg" },
+    { id: "4oDzNiAA8AARSDdv", name: "Broach Handle", cat: "N-57", imagePath: "/tools/broach-handle.jpg" },
+    { id: "4oDzNiAA8AARSDLU", name: "Broach Handle", cat: "N-87", imagePath: "/tools/broach-handle.jpg" },
+    { id: "4oDzNiAA8AARSBMD", name: "Wire And Pin", cat: "P-10", imagePath: "/tools/wire-and-pin.jpg" },
+    { id: "4oDzNiAA8AARSDdw", name: "Wire And Pin", cat: "P-29", imagePath: "/tools/wire-and-pin.jpg" },
+    { id: "4oDzNiAA8AARSTx1", name: "Ear Syringe", cat: "P-51", imagePath: "/tools/ear-syringe.jpg" },
+    { id: "4oDzNiAA8AARSVds", name: "Wire And Pin", cat: "P-59", imagePath: "/tools/wire-and-pin.jpg" },
+    { id: "4oDzNiAA8AARSARG", name: "Suction Tube", cat: "Q-76", imagePath: "/tools/suction-tube.jpg" },
+    { id: "4oDzNiAA8AARSAWz", name: "Suction Tube", cat: "Q-76", imagePath: "/tools/suction-tube.jpg" },
+    { id: "4oDzNiAA8AARSB7B", name: "Suction Tube", cat: "Q-76", imagePath: "/tools/suction-tube.jpg" },
+    { id: "4oDzNiAA8AARSAxe", name: "Miltex Forceps", cat: "S-1", imagePath: "/tools/miltex-forceps.jpg" },
+    { id: "4oDzNiAA8AARSBvi", name: "Scope Element", cat: "S-32", imagePath: "/tools/scope-element.jpg" },
+    { id: "4oDzNiAA8AARSAVK", name: "Straight Needle Holder", cat: "S-31", imagePath: "/tools/straight-needle-holder.jpg" },
+    { id: "4oDzNiAA8AARSBdN", name: "Dilator", cat: "S-40", imagePath: "/tools/dilator.jpg" },
+    { id: "4oDzNiAA8AARSCO8", name: "Dilator", cat: "S-40", imagePath: "/tools/dilator.jpg" },
+    { id: "4oDzNiAA8AARSBA4", name: "Dilator", cat: "S-40", imagePath: "/tools/dilator.jpg" },
+    { id: "4oDzNiAA8AARSDLV", name: "Baron Suction Tube", cat: "T-61", imagePath: "/tools/baron-suction-tube.jpg" },
+    { id: "4oDzNiAA8AARSAeV", name: "Laproscopic Insufflation Instrument", cat: "U-74", imagePath: "/tools/laproscopic-insufflation-instrument.jpg" },
+    { id: "4oDzNiAA8AARSVAD", name: "Yankauer Suction Tube", cat: "V-23", imagePath: "/tools/yankauer-suction-tube.jpg" },
+    { id: "4oDzNiAA8AARSDwm", name: "Sponge Holding Cotton Swab Forceps", cat: "W-27", imagePath: "/tools/sponge-holding-cotton-swab-forceps.jpg" },
+    { id: "4oDzNiAA8AARSC1B", name: "Backhaus Towel Forceps", cat: "W-74", imagePath: "/tools/backhaus-towel-forceps.jpg" },
+    { id: "4oDzNiAA8AARSUiK", name: "Bone Clamp", cat: "X-34", imagePath: "/tools/bone-clamp.jpg" },
+    { id: "4oDzNiAA8AARSAu0", name: "Bipolar Forceps", cat: "X-59", imagePath: "/tools/bipolar-forceps.jpg" },
+    { id: "4oDzNiAA8AARSB+7", name: "Backhaus Towel Forceps", cat: "X-81", imagePath: "/tools/backhaus-towel-forceps.jpg" },
+    { id: "4oDzNiAA8AARSA9B", name: "Nasal Chisel", cat: "Y-28", imagePath: "/tools/nasal-chisel.jpg" },
+    { id: "4oDzNiAA8AARSAcS", name: "Wire And Pin", cat: "Y-40", imagePath: "/tools/wire-and-pin.jpg" },
+    { id: "4oDzNiAA8AARSCbT", name: "Kerrison Rongeur", cat: "Y-87", imagePath: "/tools/kerrison-rongeur.jpg" },
+    { id: "4oDzNiAA8AARSWEh", name: "Periosteal Elevator", cat: "Z-3", imagePath: "/tools/periosteal-elevator.jpg" },
+    { id: "4oDzNiAA8AARSEXX", name: "Alignment Guide", cat: "K-10", imagePath: "/tools/alignment-guide.jpg" },
   ];
 
-  const trays = [
-    { id: "4oDzNiAA8AARSErH", name: "Basic Orthopaedic Set", imagePath: "../assets/trays/test-tray-1.png", 
+  const trays: Tray[] = [
+    { id: "4oDzNiAA8AARSErH", name: "Basic Orthopaedic Set", imagePath: "/trays/test-tray-1.png", 
       instruments: [
         {cat: "B-11", label: 1, quantity: 1},
         {cat: "G-63", label: 2, quantity: 1},
@@ -129,7 +128,7 @@ export default function assembly() {
         {cat: "E-14", label: 13, quantity: 1}
       ]
     },
-    { id: "4oDzNiAA8AARSCK3", name: "Dental Tray Set", imagePath: "../assets/trays/test-tray-2.png",
+    { id: "4oDzNiAA8AARSCK3", name: "Dental Tray Set", imagePath: "/trays/test-tray-2.png",
       instruments: [
         {cat: "S-40", label: 1, quantity: 2}, 
         {cat: "B-33", label: 2, quantity: 1}, 
@@ -142,7 +141,7 @@ export default function assembly() {
         {cat: "Q-76", label: 9, quantity: 2}, 
       ]
     },
-    { id: "4oDzNiAA8AARSHBR", name: "Dermatology Set", imagePath: "../assets/trays/test-tray-3.png",
+    { id: "4oDzNiAA8AARSHBR", name: "Dermatology Set", imagePath: "/trays/test-tray-3.png",
       instruments: [
         {cat: "K-10", label: 1, quantity: 1}, 
         {cat: "T-61", label: 2, quantity: 1}, 
@@ -156,7 +155,7 @@ export default function assembly() {
         {cat: "P-10", label: 10, quantity: 3}, 
       ]
     },
-    { id: "4oDzNiAA8AARSEXW", name: "Blepharoplasty Set", imagePath: "../assets/trays/test-tray-4.png",
+    { id: "4oDzNiAA8AARSEXW", name: "Blepharoplasty Set", imagePath: "/trays/test-tray-4.png",
       instruments: [
         {cat: "L-45", label: 1, quantity: 1}, 
         {cat: "X-81", label: 2, quantity: 1}, 
@@ -227,13 +226,14 @@ export default function assembly() {
 }, []);
 
 // detecting and sorting tools into different categories
+
 useEffect(() => {
   setTrayDetected(true);
   const detectedIDs = new Set(rfidTags);
 // detectedIDs = currentRFID tags
 
   if(trayDetected && trayData) {
-    const trayInstrumentCategories = new Set(trayData.instruments);
+    const trayInstrumentCategories = new Set(trayData.instruments.map((instrument) => (instrument.cat)));
 
     const detectedTools = tools.filter((tool) => detectedIDs.has(tool.id));
     const detectedCategories = new Set(detectedTools.map((tool) => tool.cat));
@@ -265,7 +265,6 @@ useEffect(() => {
   }
 
 }, [rfidTags]);
-
   
   return (
     <div className={styles.page}>
@@ -405,7 +404,11 @@ useEffect(() => {
               {/* <p>Bottom Tray</p> */}
               {/* <Image src={trayImage} className={styles.trayImage}alt="Full tray image"/> */}
               {/* FOR SOME REASON I HAVE TO MANUALLY THROW THIS IMAGE IN LOL */}
-              <Image src={trayImage} className={styles.trayImage} alt="Full tray image" width={500} height={500}/>
+              <Image
+                src={trayData?.imagePath || trayImage}
+                alt="Tray Image"
+              />
+              {/* <Image src={trayImage} className={styles.trayImage} alt="Full tray image" width={500} height={500}/> */}
             </div>
             </div>
       
