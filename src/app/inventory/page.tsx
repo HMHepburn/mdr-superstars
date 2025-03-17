@@ -15,7 +15,7 @@ import { ToolModal } from '../components/ToolModal';
 
 export default function assembly() {
     const [inputValue, setInputValue] = useState("");
-    const [activeTab, setActiveTab] = useState("Trays");
+    const [activeTab, setActiveTab] = useState("Tools");
     const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,89 +36,6 @@ export default function assembly() {
         
     ];
     
-    
-    // const toolComponents: { img: string; title: string; id: string; tags: string[]; trays: any[] }[] = [
-    //         { img: "fibre-optic-cord.jpg", title: "Fibre Optic Cord", id: "A-56" , tags: ["Derm"], trays:[
-    //             {name: "DERMATOLOGY SET", QTY: 1, cat: "26012"}]},
-    //         { img: "baby-hohman.jpg", title: "Baby Hohman", id: "B-11" , tags:["Ortho"] , trays:[
-    //             {name: "BASIC ORTHOPAEDIC SET", QTY: 1, cat: "26011"}]},
-    //         { img: "hip-retractor.jpg", title: "Hip Retractor", id: "B-33" , tags: ["Dental"], trays:[
-    //             {name: "DENTAL TRAY SET", QTY: 1, cat: "26019"}]},
-    //         { img: "hemoclip-applier.jpg", title: "Hemoclip Applier", id: "B-54", tags: ["Cosmetic"], trays:[
-    //             {name: "BLEPHAROPLASTY SET", QTY: 1, cat: "26015"}] },
-    //         { img: "needle-driver.jpg", title: "Needle Driver", id: "C-41" , tags: ["Dental"], trays:[
-    //             {name: "DENTAL TRAY SET", QTY: 1, cat: "26019"}]},
-    //         { img: "metz-scissor.jpg", title: "Metz Scissor", id: "C-12" , tags: ["Cosmetic"], trays:[
-    //             {name: "BLEPHAROPLASTY SET", QTY: 1, cat: "26015"}]},
-    //         { img: "bayonet-forcep.jpg", title: "Bayonet Forcep", id: "D-30", tags: ["Cosmetic"] , trays:[
-    //             {name: "BLEPHAROPLASTY SET", QTY: 1, cat: "26015"}]},
-    //         { img: "mirror1.jpg", title: "Mirror", id: "D-22" , tags:["Ortho", "Dental", "Derm", "Cosmetic"], trays:[
-    //             {name: "BASIC ORTHOPAEDIC SET", QTY: 1, cat: "26011"},
-    //             {name: "DENTAL TRAY SET", QTY: 2, cat: "26019"}, 
-    //             {name: "BLEPHAROPLASTY SET", QTY: 1, cat: "26015"},
-    //                 {name: "DERMATOLOGY SET", QTY: 1, cat: "26012"}]},
-    //         { img: "debakey-forcep.jpg", title: "Debakey Forcep", id: "E-17" , tags:["Ortho"] , trays:[
-    //             {name: "BASIC ORTHOPAEDIC SET", QTY: 1, cat: "26011"}]},
-    //         { img: "bone-hook.jpg", title: "Bone Hook", id: "E-65" , tags: ["Cosmetic"], trays:[
-    //             {name: "BLEPHAROPLASTY SET", QTY: 1, cat: "26015"}]},
-    //         { img: "lap-handle.jpg", title: "Lap Handle", id: "F-45", tags:["Ortho"] , trays:[
-    //             {name: "BASIC ORTHOPAEDIC SET", QTY: 1, cat: "26011"}] },
-    //         { img: "alignment-guide.jpg", title: "Alignment Guide", id: "G-23", tags: ["Derm"], trays:[
-    //             {name: "DERMATOLOGY SET", QTY: 1, cat: "26012"}] },
-    //         { img: "tonsil-gag.jpg", title: "Tonsil Gag", id: "H-38" , tags: ["Derm"], trays:[
-    //             {name: "DERMATOLOGY SET", QTY: 1, cat: "26012"}]},
-    //         { img: "scalpel-handle1.jpg", title: "Scalpel Handle", id: "I-50" , tags: ["Dental", "Cosmetic"], trays:[
-    //             {name: "DENTAL TRAY SET", QTY: 1, cat: "26019"}]},
-    //         { img: "electrosurgery-bipolar-forceps.jpg", title: "Electrosurgery Bipolar Foreceps", id: "J-16" , tags:["Ortho"], trays:[
-    //             {name: "BASIC ORTHOPAEDIC SET", QTY: 1, cat: "26011"}]},
-    //         { img: "angled-serrated-forceps.jpg", title: "Angled Serrated Forceps", id: "J-19" , tags: ["Cosmetic"], trays:[
-    //             {name: "BLEPHAROPLASTY SET", QTY: 1, cat: "26015"}] },
-    //         { img: "tweezer-tissue-forceps.jpg", title: "Tweezer Tissue Forceps", id: "K-24" , tags: ["Cosmetic"], trays:[
-    //             {name: "BLEPHAROPLASTY SET", QTY: 1, cat: "26015"}]},
-    //         { img: "skin-hook.jpg", title: "Skin Hook", id: "K-50" , tags: ["Derm"], trays:[
-    //             {name: "DERMATOLOGY SET", QTY: 1, cat: "26012"}]},
-    //         { img: "needle-holder.jpg", title: "Needle Holder", id: "L-12" , tags: ["Dental"], trays:[
-    //             {name: "DENTAL TRAY SET", QTY: 1, cat: "26019"}]},
-    //         { img: "broach-handle1.jpg", title: "Broach Handle", id: "M-42" , tags:["Ortho", "Derm"], trays:[
-    //             {name: "BASIC ORTHOPAEDIC SET", QTY: 1, cat: "26011"}]},
-    //         { img: "wire-and-pin1.jpg", title: "Wire And Pin", id: "N-66", tags:["Ortho","Derm"], trays:[
-    //             {name: "BASIC ORTHOPAEDIC SET", QTY: 1, cat: "26011"},
-    //                 {name: "DERMATOLOGY SET", QTY: 3, cat: "26012"}] },
-    //         { img: "ear-syringe.jpg", title: "Ear Syringe", id: "O-10" , tags: ["Cosmetic"], trays:[
-    //             {name: "BLEPHAROPLASTY SET", QTY: 1, cat: "26015"}]},
-    //         { img: "suction-tube1.jpg", title: "Suction Tube", id: "P-30" , tags:["Ortho", "Dental"], trays:[
-    //             {name: "BASIC ORTHOPAEDIC SET", QTY: 1, cat: "26011"},
-    //             {name: "DENTAL TRAY SET", QTY: 2, cat: "26019"}]},
-    //         { img: "miltex-forceps.jpg", title: "Miltex Forceps", id: "Q-27" , tags:["Ortho"], trays:[
-    //             {name: "BASIC ORTHOPAEDIC SET", QTY: 1, cat: "26011"}]},
-    //         { img: "scope-element.jpg", title: "Scope Element", id: "R-18" , tags:["Ortho"] , trays:[
-    //             {name: "BASIC ORTHOPAEDIC SET", QTY: 1, cat: "26011"}]},
-    //         { img: "straight-needle-holder.jpg", title: "Straight Needle Holder", id: "S-40", tags: ["Cosmetic"] , trays:[
-    //             {name: "BLEPHAROPLASTY SET", QTY: 1, cat: "26015"}]},
-    //         { img: "dilator1.jpg", title: "Dilator", id: "T-28" , tags: ["Dental"], trays:[
-    //             {name: "DENTAL TRAY SET", QTY: 2, cat: "26019"}]},
-    //         { img: "baron-suction-tube.jpg", title: "Baron Suction Tube", id: "U-35", tags: ["Derm"] , trays:[
-    //             {name: "DERMATOLOGY SET", QTY: 1, cat: "26012"}]},
-    //         { img: "laproscopic-insufflation-instrument.jpg", title: "Laproscopic Insufflation Instrument", id: "V-49" , tags: ["Cosmetic"], trays:[
-    //             {name: "BLEPHAROPLASTY SET", QTY: 1, cat: "26015"}]},
-    //         { img: "yankauer-suction-tube.jpg", title: "Yankauer Suction Tube", id: "W-21" , tags:["Ortho"], trays:[
-    //             {name: "BASIC ORTHOPAEDIC SET", QTY: 1, cat: "26011"}]},
-    //         { img: "sponge-holding-cotton-swab-forceps.jpg", title: "Sponge Holding Cotton Swab Forceps", id: "X-44" , tags: ["Dental"], trays:[
-    //             {name: "DENTAL TRAY SET", QTY: 1, cat: "26019"}]},
-    //         { img: "backhaus-towel-forceps2.jpg", title: "Backhaus Towel Forceps", id: "Y-13" , tags:["Ortho"], trays:[
-    //             {name: "BASIC ORTHOPAEDIC SET", QTY: 1, cat: "26011"}]},
-    //         { img: "bone-clamp.jpg", title: "Bone Clamp", id: "Z-36" , tags:["Ortho"], trays:[
-    //             {name: "BASIC ORTHOPAEDIC SET", QTY: 1, cat: "26011"}]},
-    //         { img: "bipolar-forceps.jpg", title: "Bipolar Forceps", id: "A1-20", tags: ["Derm"] , trays:[
-    //             {name: "DERMATOLOGY SET", QTY: 1, cat: "26012"}]},
-    //         { img: "backhaus-towel-forceps.jpg", title: "Backhaus Towel Forceps", id: "B1-37" , tags: ["Cosmetic"], trays:[
-    //             {name: "BLEPHAROPLASTY SET", QTY: 1, cat: "26015"}]},
-    //         { img: "nasal-chisel.jpg", title: "Nasal Chisel", id: "C1-39", tags: ["Dental"], trays:[
-    //             {name: "DENTAL TRAY SET", QTY: 1, cat: "26019"}]},
-    //         { img: "kerrison-rongeur.jpg", title: "Kerrison Rongeur", id: "E1-15", tags: ["Derm"], trays:[
-    //             {name: "DERMATOLOGY SET", QTY: 1, cat: "26012"}]},
-    //         { img: "periosteal-elevator.jpg", title: "Periosteal Elevator", id: "F1-34", tags: [], trays:[] }
-    // ];
 
     const toolComponents: { imagePath: string; name: string; cat: string; qty: string; tags: string[]; trays: any[] }[] = [
     {name: "Bone Hook", cat: "I-71", imagePath: "/tools/bone-hook.jpg" , qty: "1" , tags: ["Cosmetic"], trays:
@@ -221,7 +138,7 @@ export default function assembly() {
 
     const filters: string[] = ["Derm", "Ortho", "Dental", "Cosmetic"];
 
-    const filteredItems = (activeTab === "Trays" ? trayComponents : toolComponents)
+    const filteredItems = (activeTab === "Tools" ?  toolComponents : trayComponents)
         .filter((item) => item.name.toLowerCase().includes(inputValue.toLowerCase()))
         .filter((item) => selectedFilters.length === 0 || selectedFilters.every(filter => item.tags.includes(filter)))
 
@@ -233,8 +150,8 @@ export default function assembly() {
             <div className={styles.body}>
                 <div className={styles_inv.tabs}>
                     <Tabs aria-label="Options" selectedKey={activeTab} onSelectionChange={(key) => setActiveTab(String(key))}>
+                         <Tab className={`${styles_inv.tab} ${activeTab === 'Tools' ? styles.activeTab : styles.inactiveTab}`} key="Tools" title="Tools" />
                         <Tab className={`${styles_inv.tab} ${activeTab === 'Trays' ? styles.activeTab : styles.inactiveTab}`} key="Trays" title="Trays" />
-                        <Tab className={`${styles_inv.tab} ${activeTab === 'Tools' ? styles.activeTab : styles.inactiveTab}`} key="Tools" title="Tools" />
                     </Tabs>
                 </div>
                 <hr />

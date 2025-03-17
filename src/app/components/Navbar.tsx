@@ -13,10 +13,6 @@ export const Navbar = () => {
     const router = useRouter()
     const navLinks = [
         {
-            name: "Admin",
-            link: "/"
-        },
-        {
             name: "Inventory",
             link: "/inventory"
         },
@@ -31,9 +27,6 @@ export const Navbar = () => {
             <div className={styles.container}>
                 <a href='/'>
                     <Image src={GRHLogo3} className={styles.logo} alt="GRH Logo" />
-                </a>
-                <a href='/'className={styles.navbarlinks}>
-                    <Image src={accountIcon} className={styles.icon} alt="Admin Icon" />
                 </a>
                 {navLinks.map(({ link, name }) => (
                     <Link key={name} href={link} className={styles.navbarlinks}>
