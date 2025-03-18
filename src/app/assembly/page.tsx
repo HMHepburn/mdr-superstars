@@ -32,6 +32,8 @@ type Tray = {
   }[]; // category numbers
 };
 
+type MissingTool = Tool & { missingQuantity: number };
+
 export default function assembly() {
   const [correctActive, setCorrectActive] = useState<string | null>(null);
   const [incorrectActive, setIncorrectActive] = useState<string | null>('incorrectItems');
@@ -47,7 +49,7 @@ export default function assembly() {
   };
   //
   const [correctItems, setCorrectItems] = useState<Tool[]>([]);
-  const [missingItems, setMissingItems] = useState<Tool[]>([]);
+  const [missingItems, setMissingItems] = useState<MissingTool[]>([]);
   const [incorrectItems, setIncorrectItems] = useState<Tool[]>([]);
 
   const [trayDetected, setTrayDetected] = useState<Boolean>(false);
@@ -111,7 +113,7 @@ export default function assembly() {
   ];
 
   const trays: Tray[] = [
-    { id: "4oDzNiAA8AARSErH", name: "Basic Orthopaedic Set", imagePath: "/trays/test-tray-1.png", 
+    { id: "4oDzNiAA8AARSErH", name: "Basic Orthopaedic Set", imagePath: "/trays/basic-orthopaedic-set.jpg", 
       instruments: [
         {cat: "B-11", label: 1, quantity: 1},
         {cat: "G-63", label: 2, quantity: 1},
@@ -128,7 +130,7 @@ export default function assembly() {
         {cat: "E-14", label: 13, quantity: 1}
       ]
     },
-    { id: "4oDzNiAA8AARSCK3", name: "Dental Tray Set", imagePath: "/trays/test-tray-2.png",
+    { id: "4oDzNiAA8AARSCK3", name: "Dental Tray Set", imagePath: "/trays/dental-set.jpg",
       instruments: [
         {cat: "S-40", label: 1, quantity: 2}, 
         {cat: "B-33", label: 2, quantity: 1}, 
@@ -141,7 +143,7 @@ export default function assembly() {
         {cat: "Q-76", label: 9, quantity: 2}, 
       ]
     },
-    { id: "4oDzNiAA8AARSHBR", name: "Dermatology Set", imagePath: "/trays/test-tray-3.png",
+    { id: "4oDzNiAA8AARSHBR", name: "Dermatology Set", imagePath: "/trays/dermatology-set.jpg",
       instruments: [
         {cat: "K-10", label: 1, quantity: 1}, 
         {cat: "T-61", label: 2, quantity: 1}, 
@@ -155,7 +157,7 @@ export default function assembly() {
         {cat: "P-10", label: 10, quantity: 3}, 
       ]
     },
-    { id: "4oDzNiAA8AARSEXW", name: "Blepharoplasty Set", imagePath: "/trays/test-tray-4.png",
+    { id: "4oDzNiAA8AARSEXW", name: "Blepharoplasty Set", imagePath: "/trays/blepharoplasty-set.jpg",
       instruments: [
         {cat: "L-45", label: 1, quantity: 1}, 
         {cat: "X-81", label: 2, quantity: 1}, 
@@ -226,42 +228,65 @@ export default function assembly() {
 }, []);
 
 // detecting and sorting tools into different categories
-
 useEffect(() => {
   setTrayDetected(true);
   const detectedIDs = new Set(rfidTags);
-// detectedIDs = currentRFID tags
 
-  if(trayDetected && trayData) {
-    const trayInstrumentCategories = new Set(trayData.instruments.map((instrument) => (instrument.cat)));
+  if (trayDetected && trayData) {
+    // Step 1: Map required quantities per category
+    const trayInstrumentMap = new Map<string, { tool: Tool; requiredQuantity: number }>();
+    trayData.instruments.forEach(({ cat, quantity }) => {
+      const matchingTool = tools.find((tool) => tool.cat === cat);
+      if (matchingTool) {
+        trayInstrumentMap.set(cat, { tool: matchingTool, requiredQuantity: quantity });
+      }
+    });
 
+    // Step 2: Count detected tools per category
     const detectedTools = tools.filter((tool) => detectedIDs.has(tool.id));
-    const detectedCategories = new Set(detectedTools.map((tool) => tool.cat));
+    const detectedCategoryCounts = new Map<string, Tool[]>();
+    detectedTools.forEach((tool) => {
+      if (!detectedCategoryCounts.has(tool.cat)) {
+        detectedCategoryCounts.set(tool.cat, []);
+      }
+      detectedCategoryCounts.get(tool.cat)!.push(tool);
+    });
 
-    const correct = detectedTools.filter((tool) => trayInstrumentCategories.has(tool.cat));
-    const incorrect = detectedTools.filter((tool) => !trayInstrumentCategories.has(tool.cat));
+    // Step 3: Classify tools into correct, missing, and incorrect
+    const correct: Tool[] = [];
+    const incorrect: Tool[] = [];
+    const missing: MissingTool[] = [];
 
-    const missing = tools.filter(
-      (tool) => trayInstrumentCategories.has(tool.cat) && !detectedCategories.has(tool.cat)
-    );
+    trayInstrumentMap.forEach(({ tool, requiredQuantity }, cat) => {
+      const detectedToolsForCat = detectedCategoryCounts.get(cat) || [];
+      const detectedQuantity = detectedToolsForCat.length;
 
+      if (detectedQuantity < requiredQuantity) {
+        // If detected tools are fewer than required, mark as missing
+        missing.push({ ...tool, missingQuantity: requiredQuantity - detectedQuantity });
+      }
+
+      if (detectedQuantity > requiredQuantity) {
+        // Extra tools are incorrect
+        incorrect.push(...detectedToolsForCat.slice(requiredQuantity));
+      }
+
+      // Correct tools (only up to required quantity)
+      correct.push(...detectedToolsForCat.slice(0, Math.min(detectedQuantity, requiredQuantity)));
+    });
+
+    // Step 4: Update state
     setCorrectItems(correct);
     setMissingItems(missing);
     setIncorrectItems(incorrect);
 
     setIsTrayCompleted(incorrect.length === 0 && missing.length === 0);
-  }
-
-  else {
-    // set to true if a detected ID matches a tray ID
+  } else {
+    // Step 5: Detect tray itself if not already detected
     const detectedTray = trays.find((tray) => detectedIDs.has(tray.id));
-    
-    // setTrayDetected(trays.some((tray) => detectedIDs.has(tray.id)));
-    // setTrayData()
+
     setTrayDetected(!!detectedTray);
     setTrayData(detectedTray);
-
-    console.log(trayData);
   }
 
 }, [rfidTags]);
@@ -332,17 +357,14 @@ useEffect(() => {
                     ))}
                   </div>
                   {/* MISSING ITEMS */}
-                  <div className={styles.sectionTitle} onClick={() => toggleSection('missingItems')}>
-                    Missing Items ({missingItems.length}) <span>{missingActive === 'missingItems' ? '−' : '+'}</span>
+                  <div className={styles.sectionTitle} onClick={() => setMissingActive(missingActive === 'missingItems' ? null : 'missingItems')}>
+                    Missing Items ({missingItems.reduce((total, item) => total + item.missingQuantity, 0)}) 
+                    <span>{missingActive === 'missingItems' ? '−' : '+'}</span>
                   </div>
                   <div id='missingItems' className={`${styles.sectionContent} ${missingActive === 'missingItems' ? styles.active : ''}`}>
-                    {missingItems.map((item:any, index:number) => (
+                    {missingItems.map((item, index) => (
                       <div key={index} className={styles.row}>
-                        {/* <div className={styles.colSmall}>{item.QTY}</div>
-                        <div className={styles.col}>{item.Name}</div>
-                        <div className={styles.colSmall}><span className={styles.badge}>{item.Label}</span></div>
-                        <div className={styles.col}>{item.CAT}</div> */}
-                        <div className={styles.colSmall}>{"1"}</div>
+                        <div className={styles.colSmall}>{item.missingQuantity}</div> {/* Corrected quantity */}
                         <div className={styles.col}>{item.name}</div>
                         <div className={styles.colSmall}><span className={styles.badge}>{item.label}</span></div>
                         <div className={styles.col}>{item.cat}</div>
@@ -407,6 +429,8 @@ useEffect(() => {
               <Image
                 src={trayData?.imagePath || trayImage}
                 alt="Tray Image"
+                width={1000}
+                height={800}
               />
               {/* <Image src={trayImage} className={styles.trayImage} alt="Full tray image" width={500} height={500}/> */}
             </div>
