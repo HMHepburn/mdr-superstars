@@ -6,11 +6,8 @@ import React, { useState , useEffect, useRef} from 'react';
 import { CompleteModal } from '../components/CompleteModal';
 import { TrayInformation } from '../components/TrayInformation';
 import { PleasePlaceTray } from "../components/PleasePlaceTray";
+import { ExpansiveToolInformation } from "../components/ExpansiveToolInformation";
 import { MissingTool } from '../components/MissingTool';
-// import {
-//   Button, Accordion, AccordionItem,
-//   Modal
-// } from "@heroui/react";
 import trayImage from "../assets/GRHLogo.png"
 
 type Tool = {
@@ -34,6 +31,8 @@ type Tray = {
 };
 
 type MissingTool = Tool & { missingQuantity: number };
+type IncorrectTool = Tool & { incorrectQuantity: number };
+type CorrectTool = Tool & { correctQuantity: number };
 
 export default function assembly() {
   const [correctActive, setCorrectActive] = useState<string | null>(null);
@@ -49,9 +48,9 @@ export default function assembly() {
     setCorrectActive(prev => (id === 'correctItems' ? (prev === id ? null : id) : prev));
   };
   //
-  const [correctItems, setCorrectItems] = useState<Tool[]>([]);
+  const [correctItems, setCorrectItems] = useState<CorrectTool[]>([]);
   const [missingItems, setMissingItems] = useState<MissingTool[]>([]);
-  const [incorrectItems, setIncorrectItems] = useState<Tool[]>([]);
+  const [incorrectItems, setIncorrectItems] = useState<IncorrectTool[]>([]);
 
   const [trayDetected, setTrayDetected] = useState<Boolean>(false);
   const [trayData, setTrayData] = useState<Tray>();
@@ -176,22 +175,6 @@ export default function assembly() {
     }
   ]
 
-  /*
-  fetching initial assembly data
-  useEffect(() => {
-    fetch('/api/getAssemblyData')
-      .then((res) => res.json())
-      .then((data) => {
-        setTrayData(data.data[0].traydata as any);
-        console.log("DATA",data.data[0].traydata.additionalInfo)
-        setCorrectItems(data.data.find((list: any) => list.list === 'correct')?.items || []);
-        setIncorrectItems(data.data.find((list: any) => list.list === 'Incorrect')?.items || []);
-        setMissingItems(data.data.find((list: any) => list.list === 'Missing')?.items || []);
-      })
-      .catch((error) => console.error('Error fetching data:', error));
-  }, []);
-  */
-
   // websocket server instantiation
   useEffect(() => {
     fetch("/api/websocket") // Ensure the server is running
@@ -256,8 +239,8 @@ useEffect(() => {
     const trayCategories = new Set(trayData.instruments.map((instrument) => instrument.cat));
 
     // Step 3: Classify tools into correct, missing, and incorrect
-    const correct: Tool[] = [];
-    const incorrect: Tool[] = [];
+    const correct: CorrectTool[] = [];
+    const incorrect: IncorrectTool[] = [];
     const missing: MissingTool[] = [];
 
     trayInstrumentMap.forEach(({ tool, requiredQuantity, label }, cat) => {
@@ -270,8 +253,14 @@ useEffect(() => {
       }
 
       if (detectedQuantity > requiredQuantity) {
-        // Extra tools are incorrect
-        incorrect.push(...detectedToolsForCat.slice(requiredQuantity));
+        // Extra tools are incorrect with incorrectQuantity
+        incorrect.push(
+          ...detectedToolsForCat.slice(requiredQuantity).map((tool) => ({
+            ...tool,
+            label,
+            incorrectQuantity: detectedToolsForCat.length - requiredQuantity,
+          }))
+        );
       }
 
       // Correct tools (only up to required quantity)
@@ -279,13 +268,23 @@ useEffect(() => {
         ...detectedToolsForCat.slice(0, Math.min(detectedQuantity, requiredQuantity)).map((tool) => ({
           ...tool,
           label,
+          correctQuantity: Math.min(detectedQuantity, requiredQuantity),
         }))
       );
     });
 
+    // Step 4: Assign incorrect tools that are not part of the tray
     detectedTools.forEach((tool) => {
       if (!trayCategories.has(tool.cat)) {
-        incorrect.push(tool);
+        const existingIncorrectTool = incorrect.find((incorrectTool) => incorrectTool.cat === tool.cat);
+
+        if (existingIncorrectTool) {
+          // Increment quantity if already present
+          existingIncorrectTool.incorrectQuantity += 1;
+        } else {
+          // Add new incorrect tool entry
+          incorrect.push({ ...tool, label: "", incorrectQuantity: 1 });
+        }
       }
     });
 
@@ -358,12 +357,7 @@ useEffect(() => {
                   </div>
                   <div id='incorrectItems' className={`${styles.sectionContent} ${incorrectActive === 'incorrectItems' ? styles.active : ''}`}>
                     {incorrectItems.map((item: any, index: number) => (
-                      <div key={index} className={styles.row}>
-                        <div className={styles.colSmall}>{"1"}</div>
-                        <div className={styles.col}>{item.name}</div>
-                        <div className={styles.colSmall}><span className={styles.badge}>{item.label}</span></div>
-                        <div className={styles.col}>{item.cat}</div>
-                      </div>
+                      <ExpansiveToolInformation item={item} quantity={item.incorrectQuantity} index={index} ></ExpansiveToolInformation>
                     ))}
                   </div>
                   {/* MISSING ITEMS */}
@@ -373,12 +367,7 @@ useEffect(() => {
                   </div>
                   <div id='missingItems' className={`${styles.sectionContent} ${missingActive === 'missingItems' ? styles.active : ''}`}>
                     {missingItems.map((item, index) => (
-                      <div key={index} className={styles.row}>
-                        <div className={styles.colSmall}>{item.missingQuantity}</div> {/* Corrected quantity */}
-                        <div className={styles.col}>{item.name}</div>
-                        <div className={styles.colSmall}><span className={styles.badge}>{item.label}</span></div>
-                        <div className={styles.col}>{item.cat}</div>
-                      </div>
+                      <ExpansiveToolInformation item={item} quantity={item.missingQuantity} index={index} ></ExpansiveToolInformation>
                     ))}
                   </div>
 
@@ -388,23 +377,9 @@ useEffect(() => {
                   </div>
                   <div id='correctItems' className={`${styles.sectionContent} ${correctActive === 'correctItems' ? styles.active : ''}`}>
                     {correctItems.map((item:any, index:number) => (
-                      <div key={index} className={styles.row}>
-                        {/* <div className={styles.colSmall}>{item.QTY}</div>
-                        <div className={styles.col}>{item.Name}</div>
-                        <div className={styles.colSmall}><span className={styles.badge}>{item.Label}</span></div>
-                        <div className={styles.col}>{item.CAT}</div> */}
-                        <div className={styles.colSmall}>{"1"}</div>
-                        <div className={styles.col}>{item.name}</div>
-                        <div className={styles.colSmall}><span className={styles.badge}>{item.label}</span></div>
-                        <div className={styles.col}>{item.cat}</div>
-                      </div>
+                      <ExpansiveToolInformation item={item} quantity={item.correctQuantity} index={index} ></ExpansiveToolInformation>
                     ))}
                   </div>
-
-                  {/* removed for GW */}
-                  {/* <div className={styles.reportMissing}>
-                     <MissingTool />
-                  </div> */}
                 </div>
               </div>
           </div>
@@ -412,7 +387,6 @@ useEffect(() => {
         <div className={styles.rightSection}>
           <div className={styles.trayOverview}>
             <h4 className={styles.substitle}>TRAY OVERVIEW</h4>
-            {/* ADD ICON */}
             <div className={styles.section}>
               <div className={styles.container}>
                 <h1 className={styles.wrongNumber}>{incorrectItems.length}</h1>
@@ -433,16 +407,12 @@ useEffect(() => {
             <h4 className={styles.substitle}>REFERENCE IMAGE</h4>
             <div className={styles.section}>
             <div className={styles.container}>
-              {/* <p>Bottom Tray</p> */}
-              {/* <Image src={trayImage} className={styles.trayImage}alt="Full tray image"/> */}
-              {/* FOR SOME REASON I HAVE TO MANUALLY THROW THIS IMAGE IN LOL */}
               <Image
                 src={trayData?.imagePath || trayImage}
                 alt="Tray Image"
                 width={1000}
                 height={800}
               />
-              {/* <Image src={trayImage} className={styles.trayImage} alt="Full tray image" width={500} height={500}/> */}
             </div>
             </div>
       
