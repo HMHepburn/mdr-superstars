@@ -1,22 +1,23 @@
 'use client'
 import Image from "next/image";
 import styles from "../styles/assembly.module.css";
-import styles_inv from "../styles/tray.module.css"
+// import styles_inv from "../styles/tray.module.css"
 import React, { useState , useEffect, useRef} from 'react';
 import { CompleteModal } from '../components/CompleteModal';
 import { TrayInformation } from '../components/TrayInformation';
 import { PleasePlaceTray } from "../components/PleasePlaceTray";
 import { MissingTool } from '../components/MissingTool';
-import {
-  Button, Accordion, AccordionItem,
-  Modal
-} from "@heroui/react";
+// import {
+//   Button, Accordion, AccordionItem,
+//   Modal
+// } from "@heroui/react";
 import trayImage from "../assets/GRHLogo.png"
 
 type Tool = {
   id: string;
   name: string;
   cat: string;
+  label?: string
   imagePath: string;
   //imagePath: string;
 };
@@ -27,7 +28,7 @@ type Tray = {
   imagePath: string;
   instruments: {
     cat: string,
-    label: number,
+    label: string,
     quantity: number
   }[]; // category numbers
 };
@@ -115,62 +116,62 @@ export default function assembly() {
   const trays: Tray[] = [
     { id: "4oDzNiAA8AARSErH", name: "Basic Orthopaedic Set", imagePath: "/trays/basic-orthopaedic-set.jpg", 
       instruments: [
-        {cat: "B-11", label: 1, quantity: 1},
-        {cat: "G-63", label: 2, quantity: 1},
-        {cat: "J-55", label: 3, quantity: 1},
-        {cat: "L-29", label: 4, quantity: 1},
-        {cat: "N-57", label: 5, quantity: 1},
-        {cat: "P-10", label: 6, quantity: 1},
-        {cat: "Q-76", label: 7, quantity: 1},
-        {cat: "S-1", label: 8, quantity: 1},
-        {cat: "S-32", label: 9, quantity: 1},
-        {cat: "V-23", label: 10, quantity: 1},
-        {cat: "X-34", label: 11, quantity: 1},
-        {cat: "X-81", label: 12, quantity: 1},
-        {cat: "E-14", label: 13, quantity: 1}
+        {cat: "B-11", label: "A", quantity: 1},
+        {cat: "G-63", label: "B", quantity: 1},
+        {cat: "J-55", label: "C", quantity: 1},
+        {cat: "L-29", label: "D", quantity: 1},
+        {cat: "N-57", label: "E", quantity: 1},
+        {cat: "P-10", label: "F", quantity: 1},
+        {cat: "Q-76", label: "G", quantity: 1},
+        {cat: "S-1", label: "H", quantity: 1},
+        {cat: "S-32", label: "I", quantity: 1},
+        {cat: "V-23", label: "J", quantity: 1},
+        {cat: "X-34", label: "K", quantity: 1},
+        {cat: "X-81", label: "L", quantity: 1},
+        {cat: "E-14", label: "M", quantity: 1}
       ]
     },
     { id: "4oDzNiAA8AARSCK3", name: "Dental Tray Set", imagePath: "/trays/dental-set.jpg",
       instruments: [
-        {cat: "S-40", label: 1, quantity: 2}, 
-        {cat: "B-33", label: 2, quantity: 1}, 
-        {cat: "E-14", label: 3, quantity: 2}, 
-        {cat: "Y-28", label: 4, quantity: 1}, 
-        {cat: "C-41", label: 5, quantity: 1}, 
-        {cat: "N-14", label: 6, quantity: 1}, 
-        {cat: "L-22", label: 7, quantity: 1}, 
-        {cat: "W-27", label: 8, quantity: 1}, 
-        {cat: "Q-76", label: 9, quantity: 2}, 
+        {cat: "S-40", label: "A", quantity: 2}, 
+        {cat: "B-33", label: "B", quantity: 1}, 
+        {cat: "E-14", label: "C", quantity: 2}, 
+        {cat: "Y-28", label: "D", quantity: 1}, 
+        {cat: "C-41", label: "E", quantity: 1}, 
+        {cat: "N-14", label: "F", quantity: 1}, 
+        {cat: "L-22", label: "G", quantity: 1}, 
+        {cat: "W-27", label: "H", quantity: 1}, 
+        {cat: "Q-76", label: "I", quantity: 2}, 
       ]
     },
     { id: "4oDzNiAA8AARSHBR", name: "Dermatology Set", imagePath: "/trays/dermatology-set.jpg",
       instruments: [
-        {cat: "K-10", label: 1, quantity: 1}, 
-        {cat: "T-61", label: 2, quantity: 1}, 
-        {cat: "X-59", label: 3, quantity: 1}, 
-        {cat: "N-57", label: 4, quantity: 1}, 
-        {cat: "A-56", label: 5, quantity: 1}, 
-        {cat: "Y-87", label: 6, quantity: 1}, 
-        {cat: "E-14", label: 7, quantity: 1}, 
-        {cat: "M-35", label: 8, quantity: 1}, 
-        {cat: "K-14", label: 9, quantity: 1}, 
-        {cat: "P-10", label: 10, quantity: 3}, 
+        {cat: "K-10", label: "A", quantity: 1}, 
+        {cat: "T-61", label: "B", quantity: 1}, 
+        {cat: "X-59", label: "C", quantity: 1}, 
+        {cat: "N-57", label: "D", quantity: 1}, 
+        {cat: "A-56", label: "E", quantity: 1}, 
+        {cat: "Y-87", label: "F", quantity: 1}, 
+        {cat: "E-14", label: "G", quantity: 1}, 
+        {cat: "M-35", label: "H", quantity: 1}, 
+        {cat: "K-14", label: "I", quantity: 1}, 
+        {cat: "P-10", label: "J", quantity: 3}, 
       ]
     },
     { id: "4oDzNiAA8AARSEXW", name: "Blepharoplasty Set", imagePath: "/trays/blepharoplasty-set.jpg",
       instruments: [
-        {cat: "L-45", label: 1, quantity: 1}, 
-        {cat: "X-81", label: 2, quantity: 1}, 
-        {cat: "C-87", label: 3, quantity: 1}, 
-        {cat: "I-71", label: 4, quantity: 1}, 
-        {cat: "P-51", label: 5, quantity: 1}, 
-        {cat: "B-54", label: 6, quantity: 1}, 
-        {cat: "U-74", label: 7, quantity: 1}, 
-        {cat: "C-50", label: 8, quantity: 1}, 
-        {cat: "E-14", label: 9, quantity: 1}, 
-        {cat: "L-22", label: 10, quantity: 1}, 
-        {cat: "S-31", label: 11, quantity: 1}, 
-        {cat: "L-9", label: 12, quantity: 1}
+        {cat: "L-45", label: "A", quantity: 1}, 
+        {cat: "X-81", label: "B", quantity: 1}, 
+        {cat: "C-87", label: "C", quantity: 1}, 
+        {cat: "I-71", label: "D", quantity: 1}, 
+        {cat: "P-51", label: "E", quantity: 1}, 
+        {cat: "B-54", label: "F", quantity: 1}, 
+        {cat: "U-74", label: "G", quantity: 1}, 
+        {cat: "C-50", label: "H", quantity: 1}, 
+        {cat: "E-14", label: "I", quantity: 1}, 
+        {cat: "L-22", label: "J", quantity: 1}, 
+        {cat: "S-31", label: "K", quantity: 1}, 
+        {cat: "L-9", label: "L", quantity: 1}
       ]
     }
   ]
@@ -234,11 +235,11 @@ useEffect(() => {
 
   if (trayDetected && trayData) {
     // Step 1: Map required quantities per category
-    const trayInstrumentMap = new Map<string, { tool: Tool; requiredQuantity: number }>();
-    trayData.instruments.forEach(({ cat, quantity }) => {
+    const trayInstrumentMap = new Map<string, { tool: Tool; requiredQuantity: number; label: string }>();
+    trayData.instruments.forEach(({ cat, quantity, label }) => {
       const matchingTool = tools.find((tool) => tool.cat === cat);
       if (matchingTool) {
-        trayInstrumentMap.set(cat, { tool: matchingTool, requiredQuantity: quantity });
+        trayInstrumentMap.set(cat, { tool: { ...matchingTool, label }, requiredQuantity: quantity, label });
       }
     });
 
@@ -252,18 +253,20 @@ useEffect(() => {
       detectedCategoryCounts.get(tool.cat)!.push(tool);
     });
 
+    const trayCategories = new Set(trayData.instruments.map((instrument) => instrument.cat));
+
     // Step 3: Classify tools into correct, missing, and incorrect
     const correct: Tool[] = [];
     const incorrect: Tool[] = [];
     const missing: MissingTool[] = [];
 
-    trayInstrumentMap.forEach(({ tool, requiredQuantity }, cat) => {
+    trayInstrumentMap.forEach(({ tool, requiredQuantity, label }, cat) => {
       const detectedToolsForCat = detectedCategoryCounts.get(cat) || [];
       const detectedQuantity = detectedToolsForCat.length;
 
       if (detectedQuantity < requiredQuantity) {
         // If detected tools are fewer than required, mark as missing
-        missing.push({ ...tool, missingQuantity: requiredQuantity - detectedQuantity });
+        missing.push({ ...tool, missingQuantity: requiredQuantity - detectedQuantity, label });
       }
 
       if (detectedQuantity > requiredQuantity) {
@@ -272,7 +275,18 @@ useEffect(() => {
       }
 
       // Correct tools (only up to required quantity)
-      correct.push(...detectedToolsForCat.slice(0, Math.min(detectedQuantity, requiredQuantity)));
+      correct.push(
+        ...detectedToolsForCat.slice(0, Math.min(detectedQuantity, requiredQuantity)).map((tool) => ({
+          ...tool,
+          label,
+        }))
+      );
+    });
+
+    detectedTools.forEach((tool) => {
+      if (!trayCategories.has(tool.cat)) {
+        incorrect.push(tool);
+      }
     });
 
     // Step 4: Update state
@@ -345,10 +359,6 @@ useEffect(() => {
                   <div id='incorrectItems' className={`${styles.sectionContent} ${incorrectActive === 'incorrectItems' ? styles.active : ''}`}>
                     {incorrectItems.map((item: any, index: number) => (
                       <div key={index} className={styles.row}>
-                        {/* <div className={styles.colSmall}>{item.QTY}</div>
-                        <div className={styles.col}>{item.Name}</div>
-                        <div className={styles.colSmall}><span className={styles.badge}>{item.Label}</span></div>
-                        <div className={styles.col}>{item.CAT}</div> */}
                         <div className={styles.colSmall}>{"1"}</div>
                         <div className={styles.col}>{item.name}</div>
                         <div className={styles.colSmall}><span className={styles.badge}>{item.label}</span></div>
