@@ -308,9 +308,16 @@ useEffect(() => {
     <div className={styles.page}>
 
     {!trayDetected && 
-        <div style={{display: "flex", flexDirection: "column", width:"100%", height:"100%", marginTop:"8rem"}}>
-          <PleasePlaceTray></PleasePlaceTray>
-          <button style={{display: "flex", flexDirection: "column", height: "2rem"}} onClick={() => {setTrayDetected(true)}}>OVERRIDE THIS SCREEN BUTTON</button>
+        <div style={{display: "flex", flexDirection: "column", width:"200px", height:"100%", marginTop:"8rem"}}>
+          <div className={styles.pleasePlaceTray}>
+              <div>
+                  <h2 className={styles.plsLabel}>Please place a tray in the scanning area to begin assembly.</h2>
+                  <img src="/assets/placeTray.gif" alt="place tray" className={styles.gif}></img>
+                  <div className={styles.plsOverride}>
+                    <button className="btn-primary btn-primary-inverted" onClick={() => {setTrayDetected(true)}}>Manual Override</button>
+                  </div>
+              </div>
+          </div>
         </div>
     }
 
@@ -386,7 +393,7 @@ useEffect(() => {
         </div>
         <div className={styles.rightSection}>
           <div className={styles.trayOverview}>
-            <h4 className={styles.substitle}>TRAY OVERVIEW</h4>
+            <h4 className={styles.subtitle}>TRAY OVERVIEW</h4>
             <div className={styles.section}>
               <div className={styles.container}>
                 <h1 className={styles.wrongNumber}>{incorrectItems.length}</h1>
@@ -404,7 +411,7 @@ useEffect(() => {
           </div>
           
           <div className={styles.referenceImage}>
-            <h4 className={styles.substitle}>REFERENCE IMAGE</h4>
+            <h4 className={styles.subtitle}>REFERENCE IMAGE</h4>
             <div className={styles.section}>
             <div className={styles.container}>
               <Image
@@ -437,14 +444,14 @@ useEffect(() => {
       */}
 
 {/* temporary: live list of RFID tags */}
-        <div>
+        {/* <div>
             <h1>RFID Tags</h1>
             <ul>
                 {rfidTags.map((id, index) => (
                     <li key={index}>{id}</li>
                 ))}
             </ul>
-        </div>
+        </div> */}
       
       </main>
     }

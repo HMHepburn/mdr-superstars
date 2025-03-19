@@ -1,12 +1,31 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
 import file from "./assets/file.png"
 import tools from "./assets/surgical-tools.png"
+import React, { useState, useEffect } from "react";
 
 export default function Home() {
+    const [showBanner, setShowBanner] = useState(false);
+
+    useEffect(() => {
+        if (localStorage.getItem("trayCompleted") === "true") {
+            setShowBanner(true);
+            localStorage.removeItem("trayCompleted"); // Clear it after use
+
+            // Auto-hide the banner
+            setTimeout(() => setShowBanner(false), 3000);
+        }
+    }, []);
   return (
     <div className={styles.page}>
+      {showBanner && (
+                <div className={styles.banner}>
+                    Tray has been successfully completed!
+                </div>
+            )}
       <main className={styles.main}>
       
       <div className={styles.titlesection}>
