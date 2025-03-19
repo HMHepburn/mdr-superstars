@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import checkCircle from "../assets/CheckCircle.png";
-import alertSymbol from "../assets/AlertSymbol.png";
+import alertSymbol from "../assets/limitation.png";
 import { useState } from "react";
 
 import {
@@ -56,7 +56,7 @@ import {
       },
       {
         label: "I have marked my initials on the sticker/label.",
-        description: "Description",
+        description: "Please sign off on your assembled tray.",
         checked: false
       }
     ];
@@ -74,6 +74,7 @@ import {
     const handleComplete = (onClose: () => void) => {
         onClose(); // Close the modal
         router.push("/"); // Redirect to homepage
+        localStorage.setItem("trayCompleted", "true");
     };
 
     return (

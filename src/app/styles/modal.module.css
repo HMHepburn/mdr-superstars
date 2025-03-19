@@ -52,6 +52,8 @@
 
 .checkIcon {
     margin: 20px 0 20px 0;
+    width: 70px;
+    height: auto;
 }
 
 .modalFoot {

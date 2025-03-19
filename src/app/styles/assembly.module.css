@@ -22,6 +22,7 @@
 
   .subtitle {
     font-weight: bold;
+    font-size: 1.2rem;
   }
 
   .page h4{
@@ -30,17 +31,20 @@
 
   .topSection{
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
+    grid-template-columns: 45% 55%;
     gap: 1rem;
     padding: 1.5rem 0 1.5rem 0;
-    /* height: 100vh; */
+  }
+
+  .leftSection{
+    width: 100%;
   }
 
   .headerContainer{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     border-bottom: 1px solid var(--light-grey);
     margin-top: 60px;
   }
@@ -56,6 +60,7 @@
     padding: 20px; 
     background: white;
     border-radius: 8px;
+    font-size: 1.2rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 
@@ -92,6 +97,7 @@
     border-bottom: 1px solid #ddd ;
     padding: 8px 0;
     width: 100% !important;
+    /* font-size: 1rem; */
   }
   .row:last-child {
     border-bottom: none;
@@ -103,8 +109,9 @@
   .col {
     flex: 1;
     padding: 0 8px;
-    text-align: left;
+    text-align: center;
   }
+
   .colSmall {
     flex: 0.5 ;
     text-align: center;
@@ -136,6 +143,7 @@
     /* border-top: 1px solid #ddd; */
     padding-top: 10px;
     display: none;
+    font-size: 1.1rem;
   }
   .sectionContent.active {
     display: block;
@@ -160,10 +168,10 @@
     justify-content: center;
     align-items: center;
     min-height: 15vh;
- 
   }
+
   .trayOverview .section p{
-    font-size: larger;
+    font-size: 1.1rem;
   }
   .correctItems {
     color: var(--primary-accent);
@@ -198,7 +206,46 @@
   margin-top: 20px;
 }
 
-  
+.pleasePlaceTray{
+  background-color: var(--background);
+  border-radius: 20px;
+  width: 90%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  padding-top: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+}
+
+.plsLabel{
+  text-align: center;
+  padding-top: 20vh;
+}
+
+.plsOverride{
+  display: flex;
+  justify-content: right;
+  align-items: right;
+  padding-top: 70px;
+}
+
+.gif{
+  width: 250px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  /* border: solid 10px var(--primary-accent); */
+  padding: 20px;
+  /* margin: 20px; */
+  /* border-color: var(--primary-accent); */
+}
+
   /* Responsive Styles */
   @media (max-width: 768px) {
     .row {
