@@ -30,7 +30,7 @@ export default function Home() {
       
       <div className={styles.titlesection}>
         <h1>Welcome!</h1>
-        <p className={styles.subtitle}>Select an option or scan a tray to start.</p>
+        <p className={styles.subtitle}>Select an option to begin.</p>
       </div>
 
       {/* add styles for a component */}

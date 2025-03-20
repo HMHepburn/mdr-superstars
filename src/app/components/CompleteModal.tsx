@@ -28,7 +28,7 @@ import {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
     const [canSubmit, setCanSubmit] = useState<Boolean>(false);
 
-    let checklistItems = [
+    const [checklistItems, setChecklistItems] = useState([
       {
         label: "I have arranged every instrument in its proper place.",
         description: "Reference the provided images and labels.",
@@ -59,17 +59,18 @@ import {
         description: "Please sign off on your assembled tray.",
         checked: false
       }
-    ];
+    ]);
 
     const router = useRouter(); // Initialize useRouter
 
     const handleCheckboxChange = (index: number) => {
-      checklistItems[index].checked = !checklistItems[index].checked;
-
-      if(checklistItems.every(checklistItem => checklistItem.checked) == true) {
-        setCanSubmit(true);
-      }
-    }
+      const updatedItems = [...checklistItems]; // Create a copy of the array
+      updatedItems[index].checked = !updatedItems[index].checked; // Toggle the checked state
+      setChecklistItems(updatedItems); // Update state
+    
+      // Check if all checkboxes are checked
+      setCanSubmit(updatedItems.every((item) => item.checked));
+    };
 
     const handleComplete = (onClose: () => void) => {
         onClose(); // Close the modal
@@ -84,7 +85,7 @@ import {
           <Modal isOpen={isOpen} onOpenChange={onOpenChange} scrollBehavior={"outside"} className={styles.modal}>
             <ModalContent>
               {(onClose) => (
-                <>
+                <div>
                 {/* isCompleted goes here to change output! */}
                   <ModalHeader className={isCompleted ? styles.incompleteHeader : styles.completeHeader}>
                     {isCompleted ? "Looks like you have all your items!" : "The tray has missing or incorrect items!"}
@@ -116,7 +117,7 @@ import {
                       </Button>
                     }
                   </ModalFooter>
-                </>
+                </div>
               )}
             </ModalContent>
           </Modal>
