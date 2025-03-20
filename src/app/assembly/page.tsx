@@ -113,7 +113,7 @@ export default function assembly() {
   ];
 
   const trays: Tray[] = [
-    { id: "4oDzNiAA8AARSErH", name: "Basic Orthopaedic Set", imagePath: "/trays/basic-orthopaedic-set.jpg", 
+    { id: "4oDzNiAA8AARSErH", name: "Basic Orthopaedic Set", imagePath: "/trays/ortho.png", 
       instruments: [
         {cat: "B-11", label: "A", quantity: 1},
         {cat: "G-63", label: "B", quantity: 1},
@@ -130,7 +130,7 @@ export default function assembly() {
         {cat: "E-14", label: "M", quantity: 1}
       ]
     },
-    { id: "4oDzNiAA8AARSCK3", name: "Dental Tray Set", imagePath: "/trays/dental-set.jpg",
+    { id: "4oDzNiAA8AARSCK3", name: "Dental Tray Set", imagePath: "/trays/dental.png",
       instruments: [
         {cat: "S-40", label: "A", quantity: 2}, 
         {cat: "B-33", label: "B", quantity: 1}, 
