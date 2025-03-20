@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Image from "next/image";
 import styles from "../styles/assembly.module.css";
 // import styles_inv from "../styles/tray.module.css"
@@ -7,7 +7,7 @@ import { CompleteModal } from '../components/CompleteModal';
 import { TrayInformation } from '../components/TrayInformation';
 import { PleasePlaceTray } from "../components/PleasePlaceTray";
 import { ExpansiveToolInformation } from "../components/ExpansiveToolInformation";
-import { MissingTool } from '../components/MissingTool';
+// import { MissingTool } from '../components/MissingTool';
 import trayImage from "../assets/GRHLogo.png"
 
 type Tool = {
@@ -85,7 +85,7 @@ export default function assembly() {
     { id: "4oDzNiAA8AARSDdv", name: "Broach Handle", cat: "N-57", imagePath: "/tools/broach-handle.jpg" },
     { id: "4oDzNiAA8AARSDLU", name: "Broach Handle", cat: "N-87", imagePath: "/tools/broach-handle.jpg" },
     { id: "4oDzNiAA8AARSBMD", name: "Wire And Pin", cat: "P-10", imagePath: "/tools/wire-and-pin.jpg" },
-    { id: "4oDzNiAA8AARSDdw", name: "Wire And Pin", cat: "P-29", imagePath: "/tools/wire-and-pin.jpg" },
+    { id: "4oDzNiAA8AARSDdw", name: "Wire And Pin", cat: "P-10", imagePath: "/tools/wire-and-pin.jpg" },
     { id: "4oDzNiAA8AARSTx1", name: "Ear Syringe", cat: "P-51", imagePath: "/tools/ear-syringe.jpg" },
     { id: "4oDzNiAA8AARSVds", name: "Wire And Pin", cat: "P-59", imagePath: "/tools/wire-and-pin.jpg" },
     { id: "4oDzNiAA8AARSARG", name: "Suction Tube", cat: "Q-76", imagePath: "/tools/suction-tube.jpg" },
@@ -113,7 +113,7 @@ export default function assembly() {
   ];
 
   const trays: Tray[] = [
-    { id: "4oDzNiAA8AARSErH", name: "Basic Orthopaedic Set", imagePath: "/trays/ortho.png", 
+    { id: "4oDzNiAA8AARSErH", name: "Basic Orthopaedic Set", imagePath: "/trays/basic-orthopaedic-set.png",
       instruments: [
         {cat: "B-11", label: "A", quantity: 1},
         {cat: "G-63", label: "B", quantity: 1},
@@ -130,7 +130,7 @@ export default function assembly() {
         {cat: "E-14", label: "M", quantity: 1}
       ]
     },
-    { id: "4oDzNiAA8AARSCK3", name: "Dental Tray Set", imagePath: "/trays/dental.png",
+    { id: "4oDzNiAA8AARSCK3", name: "Dental Tray Set", imagePath: "/trays/dental-set.png",
       instruments: [
         {cat: "S-40", label: "A", quantity: 2}, 
         {cat: "B-33", label: "B", quantity: 1}, 
@@ -157,7 +157,7 @@ export default function assembly() {
         {cat: "P-10", label: "J", quantity: 3}, 
       ]
     },
-    { id: "4oDzNiAA8AARSEXW", name: "Blepharoplasty Set", imagePath: "/trays/blepharoplasty-set.jpg",
+    { id: "4oDzNiAA8AARSEXW", name: "Blepharoplasty Set", imagePath: "/trays/blepharoplasty-set.png",
       instruments: [
         {cat: "L-45", label: "A", quantity: 1}, 
         {cat: "X-81", label: "B", quantity: 1}, 
@@ -253,24 +253,12 @@ useEffect(() => {
       }
 
       if (detectedQuantity > requiredQuantity) {
-        // Extra tools are incorrect with incorrectQuantity
-        incorrect.push(
-          ...detectedToolsForCat.slice(requiredQuantity).map((tool) => ({
-            ...tool,
-            label,
-            incorrectQuantity: detectedToolsForCat.length - requiredQuantity,
-          }))
-        );
+        incorrect.push({ ...tool, incorrectQuantity: detectedQuantity - requiredQuantity, label });
       }
 
-      // Correct tools (only up to required quantity)
-      correct.push(
-        ...detectedToolsForCat.slice(0, Math.min(detectedQuantity, requiredQuantity)).map((tool) => ({
-          ...tool,
-          label,
-          correctQuantity: Math.min(detectedQuantity, requiredQuantity),
-        }))
-      );
+      if(detectedQuantity != 0) {
+        correct.push({ ...tool, correctQuantity: Math.min(detectedQuantity, requiredQuantity), label });
+      }
     });
 
     // Step 4: Assign incorrect tools that are not part of the tray
@@ -293,7 +281,7 @@ useEffect(() => {
     setMissingItems(missing);
     setIncorrectItems(incorrect);
 
-    setIsTrayCompleted(incorrect.length === 0 && missing.length === 0);
+    setIsTrayCompleted(incorrect.reduce((total, item) => total + item.incorrectQuantity, 0) === 0 && missingItems.reduce((total, item) => total + item.missingQuantity, 0) ===0);
   } else {
     // Step 5: Detect tray itself if not already detected
     const detectedTray = trays.find((tray) => detectedIDs.has(tray.id));
@@ -360,7 +348,7 @@ useEffect(() => {
 
                   {/* INCORRECT ITEMS */}
                   <div className={styles.sectionTitle} onClick={() => toggleSection('incorrectItems')}>
-                    Incorrect Items ({incorrectItems.length}) <span>{incorrectActive === 'incorrectItems' ? '−' : '+'}</span>
+                    Incorrect Items ({incorrectItems.reduce((total, item) => total + item.incorrectQuantity, 0)}) <span>{incorrectActive === 'incorrectItems' ? '−' : '+'}</span>
                   </div>
                   <div id='incorrectItems' className={`${styles.sectionContent} ${incorrectActive === 'incorrectItems' ? styles.active : ''}`}>
                     {incorrectItems.map((item: any, index: number) => (
@@ -380,7 +368,7 @@ useEffect(() => {
 
                   {/* CORRECT ITEMS */}
                   <div className={styles.correctItems} onClick={() => toggleSection('correctItems')}>
-                    Correct Items ({correctItems.length}) <span>{correctActive === 'correctItems' ? '−' : '+'}</span>
+                    Correct Items ({correctItems.reduce((total, item) => total + item.correctQuantity, 0)}) <span>{correctActive === 'correctItems' ? '−' : '+'}</span>
                   </div>
                   <div id='correctItems' className={`${styles.sectionContent} ${correctActive === 'correctItems' ? styles.active : ''}`}>
                     {correctItems.map((item:any, index:number) => (
@@ -396,15 +384,15 @@ useEffect(() => {
             <h4 className={styles.subtitle}>TRAY OVERVIEW</h4>
             <div className={styles.section}>
               <div className={styles.container}>
-                <h1 className={styles.wrongNumber}>{incorrectItems.length}</h1>
+                <h1 className={styles.wrongNumber}>{incorrectItems.reduce((total, item) => total + item.incorrectQuantity, 0)}</h1>
                 <p>Incorrect Items</p>
               </div>
               <div className={styles.container}>
-                <h1 className={styles.wrongNumber}>{missingItems.length}</h1>
+                <h1 className={styles.wrongNumber}>{missingItems.reduce((total, item) => total + item.missingQuantity, 0)}</h1>
                 <p>Missing Items</p>
               </div>
               <div className={styles.container}>
-                <h1 className={styles.correctNumber}>{correctItems.length}</h1>                  
+                <h1 className={styles.correctNumber}>{correctItems.reduce((total, item) => total + item.correctQuantity, 0)}</h1>                  
                 <p>Correct Items</p>
               </div>
             </div>
@@ -417,8 +405,8 @@ useEffect(() => {
               <Image
                 src={trayData?.imagePath || trayImage}
                 alt="Tray Image"
-                width={800}
-                height={500}
+                width={1050}
+                height={700}
               />
             </div>
             </div>
