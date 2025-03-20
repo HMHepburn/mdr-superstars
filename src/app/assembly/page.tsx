@@ -417,8 +417,8 @@ useEffect(() => {
               <Image
                 src={trayData?.imagePath || trayImage}
                 alt="Tray Image"
-                width={1000}
-                height={800}
+                width={800}
+                height={500}
               />
             </div>
             </div>
