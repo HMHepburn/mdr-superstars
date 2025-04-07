@@ -6,31 +6,31 @@
         {
           "QTY": 1,
           "Name": "Anti Torque Key 2",
-          "Label": "B",
+          "Label": "A",
           "CAT": "123456"
         },
         {
           "QTY": 1,
           "Name": "Rod Fork",
-          "Label": "mju7j",
+          "Label": "B",
           "CAT": "123456"
         },
         {
           "QTY": 1,
           "Name": "Balanced T-Torque",
-          "Label": "--",
+          "Label": "D",
           "CAT": "123456"
         },
         {
           "QTY": 2,
           "Name": "5mm Hex Square",
-          "Label": "--",
+          "Label": "E",
           "CAT": "123456"
         },
         {
           "QTY": 1,
           "Name": "Inserter Tube",
-          "Label": "--",
+          "Label": "F",
           "CAT": "123456"
         }
       ],
@@ -54,20 +54,20 @@
         {
           "QTY": 1,
           "Name": "Distractor Small",
-          "Label": "--",
-          "CAT": 123456
+          "Label": "B",
+          "CAT": "123456"
         },
         {
           "QTY": 1,
           "Name": "Compressor Small",
-          "Label": "--",
-          "CAT": 123456
+          "Label": "A",
+          "CAT": "123456"
         },
         {
           "QTY": 1,
           "Name": "Long Template Rod",
-          "Label": "--",
-          "CAT": 123456
+          "Label": "C",
+          "CAT": "123456"
         }
       ],
       "image": "/assets/XIA_middle_tray.png",
@@ -85,60 +85,54 @@
         {
           "QTY": 1,
           "Name": "Mono-Driver",
-          "Label": "--",
+          "Label": "A",
           "CAT": "123456"
         },
         {
           "QTY": 1,
           "Name": "Rod Pusher",
-          "Label": "--",
+          "Label": "C",
           "CAT": "123456"
         },
         {
           "QTY": 2,
           "Name": "Bending Iron",
-          "Label": "--",
+          "Label": "B",
           "CAT": "123456"
         },
         {
           "QTY": 1,
           "Name": "Cork Screw Persuader (2pcs)",
-          "Label": "--",
+          "Label": "F",
           "CAT": "123456"
         },
         {
           "QTY": 1,
           "Name": "Curved Blunt Probe",
-          "Label": "--",
+          "Label": "D",
           "CAT": "123456"
         },
         {
           "QTY": 1,
           "Name": "Rod Insertion Forceps",
-          "Label": "--",
+          "Label": "E",
           "CAT": "123456"
         },
         {
           "QTY": 1,
           "Name": "Thoracic Feeer Sound",
-          "Label": "--",
+          "Label": "G",
           "CAT": "123456"
         },
         {
           "QTY": 1,
           "Name": "French Bender",
-          "Label": "--",
+          "Label": "H",
           "CAT": "123456"
         }
       ],
-      "image": "/assets/user_testing_tray.jpg",
-      "additionalInfo": [
-        {
-          "title": "Ctest",
-          "description": "assembly instructions",
-          "img": "/assets/user_testing_tray.jpg"
-        }
-      ]
+      "image": "/assets/XIA_tray_image.png",
+      "additionalInfo": []
     }
   ]
 }
