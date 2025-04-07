@@ -46,11 +46,12 @@ export default function assembly() {
     };
 
     const trayComponents: { imagePath: string; name: string; cat: string;qty: string; tags: string[]; trays: any[] }[] = [
+        { imagePath: "", name: "XIA-3 INSTRUMENT SET", cat: "26020", qty: "",tags: ["Cosmetic"], trays: [] },
         { imagePath: "", name: "BASIC ORTHOPAEDIC SET", cat: "26011", qty: "", tags: ["Ortho"], trays: [] },
         { imagePath: "",name: "BLEPHAROPLASTY SET", cat: "26015",qty: "", tags: ["Cosmetic"], trays: [] },
         { imagePath: "",name: "DERMATOLOGY SET", cat: "26012", qty: "",tags: ["Derm"] , trays: []},
-        { imagePath: "", name: "DENTAL TRAY SET", cat: "26019", qty: "",tags: ["Dental"], trays: [] },
-        
+        { imagePath: "", name: "DENTAL TRAY SET", cat: "26019", qty: "",tags: ["Dental"], trays: [] }
+       
     ];
 
     const toolComponents: ToolComponent[] = [

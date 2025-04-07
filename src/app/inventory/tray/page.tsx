@@ -238,7 +238,7 @@ export default function Tray() {
                             </div>
                             </div>
                             <div className={styles.bottomSection} >
-                                <h2 className={styles.subtitle}>OTHER DETAILS</h2>
+                                {/* <h2 className={styles.subtitle}>OTHER DETAILS</h2>
                                 <div className={styles.section}>
                                 <Accordion selectionMode="multiple" className={styles_inv.accordion}>
                                     {layer.additionalInfo.map((item:any, i:number) => (  
@@ -248,7 +248,7 @@ export default function Tray() {
                                         </AccordionItem>
                                     ))}  
                                 </Accordion>
-                                </div>
+                                </div> */}
                             </div>
                     </main>
                     </CardBody>
